@@ -11,3 +11,10 @@ export interface IUser {
   name: string;
   surname: string;
 }
+
+export interface IBooks {
+  title: string;
+  author: string;
+  id: string;
+  coverImageUrl: string;
+}
