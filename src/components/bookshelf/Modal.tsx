@@ -1,13 +1,22 @@
 import { jsx } from '@emotion/react';
-import { defaultContext } from 'msw';
 import React, {
   createContext,
   useState,
   useContext,
   cloneElement,
 } from 'react';
-import { CircleButton } from './reusableComponents';
-import { Dialog } from './reusableComponents';
+import { CircleButton } from './ReusableComponents';
+import { Dialog } from './ReusableComponents';
+
+interface Props {
+  title: string;
+  children: any;
+}
+
+// interface Array {
+//   isOpen: boolean;
+//   setIsOpen(value: boolean): void;
+// }
 
 export const callAll =
   (...fns) =>
@@ -42,14 +51,17 @@ export function ModalContentsBase(props) {
   );
 }
 
-export function ModalContents({ title, children, ...props }) {
+export const ModalContents: React.FC<Props> = ({
+  title,
+  children,
+  ...props
+}) => {
   return (
     <ModalContentsBase {...props}>
       <div
         style={{
           display: 'flex',
           justifyContent: 'flex-end',
-          backgroundColor: 'red',
         }}
       >
         <ModalDismissButton>
@@ -62,4 +74,4 @@ export function ModalContents({ title, children, ...props }) {
       {children}
     </ModalContentsBase>
   );
-}
+};

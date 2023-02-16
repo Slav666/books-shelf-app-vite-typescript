@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
-// import { Modal } from 'daisyui/modal';
+import { Dialog as ReachDialog } from '@reach/dialog';
 import { FaSpinner } from 'react-icons/fa';
 import { keyframes } from '@emotion/react';
 import { jsx } from '@emotion/react';
+
+export interface Variant {
+  variant: string;
+}
 
 const ButtonsVariant = {
   primary: {
@@ -16,7 +20,7 @@ const ButtonsVariant = {
   },
 };
 
-const Button = styled.button(
+const Button = styled.button<Variant>(
   {
     padding: '10px 15px',
     border: '0',
@@ -48,40 +52,16 @@ const CircleButton = styled.button({
   cursor: 'pointer',
 });
 
-const DialogComponent = () => {
-  return (
-    <div>
-      <input className="modal-toggle" id="my-modal" type="checkbox" />
-      <div className="modal">
-        <div className="modal-box bg-blue-700">
-          <h3 className="text-lg font-bold ">
-            Congratulations random Internet user!
-          </h3>
-          <p className="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
-          <div className="modal-action">
-            <label className="btn" htmlFor="my-modal">
-              Close
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Dialog = styled(DialogComponent)({
+const Dialog = styled(ReachDialog)({
   maxWidth: '450px',
   borderRadius: '3px',
   paddingBottom: '3.5em',
   boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.2)',
   margin: '20vh auto',
-  // '@media (max-width: 991px)': {
-  //   width: '100%',
-  //   margin: '10vh auto',
-  // },
+  '@media (max-width: 991px)': {
+    width: '100%',
+    margin: '10vh auto',
+  },
 });
 
 const FormGroup = styled.div({

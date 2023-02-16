@@ -1,25 +1,19 @@
 import React from 'react';
-import { IBooks } from '~/utility/interface';
-import { useParams } from 'react-router-dom';
-import useBooksByTitle from '~/hooks/useBooksByTitle';
 
-function BookRow({ val }) {
-  // console.log('Book row data', data);
-  // console.log('book', book);
-  // const { title } = useParams();
-  // const { data: booksByTitle, status } = useBooksByTitle(title);
-  // console.log('book', book);
-  // const { title, author, coverImageUrl } = data;
+export interface Props {
+  val: any;
+}
 
-  // const id = `book-row-book-${book.id}`;
-
+const BookRow = ({ val }: Props) => {
   return (
     <div
       style={{
+        maxWidth: 800,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
         position: 'relative',
+        margin: '3rem',
       }}
     >
       <div
@@ -84,6 +78,6 @@ function BookRow({ val }) {
       </div>
     </div>
   );
-}
+};
 
 export { BookRow };
