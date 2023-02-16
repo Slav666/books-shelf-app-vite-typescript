@@ -10,11 +10,12 @@ const getBooksHandler: RequestHandler = rest.get(URL_PATH, (req, res, ctx) => {
 
 const getBooksByTitleHandler = rest.get(
   `${URL_PATH}:title`,
-  (req, res, ctx) => {
+  async (req, res, ctx) => {
     console.log('title form getBooksByTitle', req.params.title);
     return res(ctx.status(200), ctx.json(getBooksByTitle(req.params.title)));
   },
 );
+
 const handlers = [getBooksHandler, getBooksByTitleHandler];
 
 export default handlers;

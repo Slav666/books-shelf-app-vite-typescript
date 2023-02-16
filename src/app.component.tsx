@@ -1,39 +1,47 @@
 /* eslint-disable prettier/prettier */
 import React, { FC, ReactElement } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import SinglePostPage from './components/SinglePost';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useParams,
+} from 'react-router-dom';
 import Header from '~/layout/header.component';
 import Footer from '~/layout/footer.component';
-import PostList from './components/PostList';
-import CreatePost from './components/CreatePost';
-import UpdatePost from './components/UpdatePost';
 import { Logo } from './components/bookshelf/logo';
-import { DiscoverBooksScreen } from './components/bookshelf/discover';
-import {
-  Dialog,
-  Button,
-  CircleButton,
-} from '../src/components/bookshelf/reusableComponents';
+import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
+import { Button } from './components/bookshelf/ReusableComponents';
 import {
   Modal,
   ModalOpenButton,
   ModalContents,
-} from '../src/components/bookshelf/modal';
-import LoginForm from '../src/components/bookshelf/login-register-form';
-// import { BookRow } from './components/bookshelf/bookrow';
+} from './components/bookshelf/Modal';
+import LoginForm from './components/bookshelf/Login-Register-Form';
+import { AuthenticatedApp } from './components/bookshelf/AuthenticatedApp';
 
 const App: FC = (): ReactElement => {
-  function login(formData) {
-    console.log('login', formData);
-  }
+  const [user, setUser] = React.useState(null);
 
-  function register(formData) {
-    console.log('register', formData);
-  }
+  const login = form => login(form).then(u => setUser(u));
+  // const register = form => useUser.register(form).then(u => setUser(u));
+  // const logout = () => {
+  //   auth.logout();
+  //   setUser(null);
+  // };
+
+  // function login(formData) {
+  //   console.log('login', formData);
+  // }
+
+  // function register(formData) {
+  //   console.log('register', formData);
+  // }
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
+      <AuthenticatedApp user={user} />
       <div
         style={{
           display: 'flex',
@@ -56,9 +64,7 @@ const App: FC = (): ReactElement => {
         >
           <Modal>
             <ModalOpenButton>
-              <label htmlFor="my-modal" className="btn">
-                Login
-              </label>
+              <Button>Login</Button>
             </ModalOpenButton>
             <ModalContents aria-label="Login form" title="Login">
               <LoginForm
@@ -69,50 +75,20 @@ const App: FC = (): ReactElement => {
           </Modal>
           <Modal>
             <ModalOpenButton>
-              <label htmlFor="my-modal" className="btn">
-                Register
-              </label>
+              <Button>Register</Button>
             </ModalOpenButton>
             <ModalContents aria-label="Registration form" title="Register">
               <LoginForm
                 submitButton={<Button variant="secondary">Register</Button>}
-                onSubmit={register}
+                // onSubmit={register}
               />
             </ModalContents>
           </Modal>
         </div>
       </div>
       <main className="grow">
-        {/* <Router> */}
-        {/* <nav className="m-2 flex justify-center">
-            <Link
-              className="m-2 rounded-md bg-sky-500 p-2 hover:bg-sky-800"
-              to="/"
-            >
-              Home
-            </Link>
-            <Link
-              className="m-2 rounded-md bg-sky-500 p-2 hover:bg-sky-800"
-              to="/createPost"
-            >
-              Create New Post
-            </Link>
-          </nav> */}
-        {/* <Routes> */}
-        {/* <Route element */}
-        {/* <Route element={<PostList />} path="/" /> */}
-        {/* <Route element={<SinglePostPage />} path="/posts/:id" />
-            <Route element={<UpdatePost />} path="updatePost/:id" />
-            <Route element={<CreatePost />} path="createPost/" />
-            <Route element={<DiscoverBooksScreen />} path="/books/:title" /> */}
-        {/* </Routes> */}
-        {/* </Router> */}
         <DiscoverBooksScreen />
       </main>
-      {/* <Dialog />
-      <label htmlFor="my-modal" className="btn">
-        open modal
-      </label> */}
       <Footer />
     </div>
   );

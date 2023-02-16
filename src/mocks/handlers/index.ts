@@ -1,7 +1,6 @@
-import blogHandlers from './blog';
 import appHandlers from './app';
 import booksHandlers from './bookshelf';
 
-const handlers = [...blogHandlers, ...appHandlers, ...booksHandlers];
+const handlers = [...appHandlers, ...booksHandlers];
 
 export default handlers;
