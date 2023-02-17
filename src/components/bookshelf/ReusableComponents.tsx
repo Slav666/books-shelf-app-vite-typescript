@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Link as RouterLink } from 'react-router-dom';
 import { Dialog as ReachDialog } from '@reach/dialog';
 import { FaSpinner } from 'react-icons/fa';
 import { keyframes } from '@emotion/react';
@@ -106,6 +107,14 @@ const BookListUL = styled.ul({
   gridGap: '1em',
 });
 
+const Link = styled(RouterLink)({
+  color: 'pink',
+  ':hover': {
+    color: 'yellow',
+    textDecoration: 'underline',
+  },
+});
+
 export {
   Button,
   Input,
@@ -115,4 +124,5 @@ export {
   FullPageSpinner,
   BookListUL,
   Spinner,
+  Link,
 };
