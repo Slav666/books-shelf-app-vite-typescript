@@ -25,8 +25,6 @@ const BookRow = ({ val }: Props) => {
           gridTemplateColumns: '140px 1fr',
           gridGap: 20,
           border: '1px solid red',
-          // border: `1px solid ${colors.gray20}`,
-          // color: colors.text,
           color: 'red',
           padding: '1.25em',
           borderRadius: '3px',
@@ -52,7 +50,6 @@ const BookRow = ({ val }: Props) => {
                   fontSize: '1.25em',
                   margin: '0',
                   color: 'blue',
-                  // color: colors.indigo,
                 }}
               >
                 {val.title}

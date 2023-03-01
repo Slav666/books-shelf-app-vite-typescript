@@ -1,13 +1,12 @@
 import { jsx } from '@emotion/core';
 
 import * as React from 'react';
-import { Button } from './ReusableComponents';
+import { Button } from '../src/components/bookshelf/reusableComponents';
 import { Routes, Route, Link } from 'react-router-dom';
-// import * as mq from './styles/media-queries';
-import { IUser } from './types';
-import { DiscoverBooksScreen } from './DiscoverBookScreen';
+import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
+import { NotFoundScreen } from './screens/notFound';
 
-function AuthenticatedApp({ user }) {
+function AuthenticatedApp({ user, setIsLoggedIn }) {
   return (
     <React.Fragment>
       <div
@@ -17,13 +16,14 @@ function AuthenticatedApp({ user }) {
           position: 'absolute',
           top: '10px',
           right: '10px',
+          color: 'red',
         }}
       >
-        {user}
+        <p style={{ color: 'red' }}>Hello User: {user}</p>
         <Button
           variant="secondary"
           style={{ marginRight: '40px', marginTop: '160px' }}
-          // onClick={logout}
+          onClick={setIsLoggedIn(false)}
         >
           Logout
         </Button>
@@ -48,11 +48,9 @@ function AuthenticatedApp({ user }) {
           <Nav />
         </div>
         <main style={{ width: '100%' }}>
-          <AppRoutes user={user} />
+          <AppRoutes />
         </main>
       </div>
-      {/* <DiscoverBooksScreen />
-      </div> */}
     </React.Fragment>
   );
 }
@@ -67,15 +65,12 @@ function NavLink(props) {
         width: '100%',
         height: '100%',
         color: 'blue',
-        // color: colors.text,
         borderRadius: '2px',
         borderLeft: '5px solid transparent',
         ':hover': {
           color: 'red',
-          // color: colors.indigo,
           textDecoration: 'none',
           background: 'pink',
-          // background: colors.gray10,
         },
       }}
       {...props}
@@ -91,7 +86,6 @@ function Nav() {
         top: '4px',
         padding: '1em 1.5em',
         border: '1px solid green',
-        // border: `1px solid ${colors.gray10}`,
         borderRadius: '3px',
         // [mq.small]: {
         //   position: 'static',
@@ -113,12 +107,12 @@ function Nav() {
   );
 }
 
-function AppRoutes({ user }) {
+function AppRoutes() {
   return (
     <Routes>
-      <Route path="/discover" element={<DiscoverBooksScreen user={user} />} />
-      {/* <Route path="/book/:bookId" element={<BookScreen user={user} />} />
-      <Route path="*" element={<NotFoundScreen />} /> */}
+      <Route path="/discover" element={<DiscoverBooksScreen />} />
+      {/* <Route path="/book/:bookId" element={<BookScreen user={user} />} /> */}
+      <Route path="*" element={<NotFoundScreen />} />
     </Routes>
   );
 }

@@ -808,12 +808,6 @@ export let books = [
 const getBooks = () => books;
 const getBooksByTitle = (title: string) => {
   const booksByTitle = books.map(book => book);
-  // const x = booksByTitle.find(book => book.title === title);
-  // const x = books =>
-  //   books.filter((item, index) => books.indexOf(item) !== index);
-  // const duplicateElementa = x(books);
-  // const sort = booksByTitle.fin(booksBy => booksBy.title === title);
-  // const booksByTitle = books.find(book => book.title === title);
   console.log('books by title', booksByTitle);
   return booksByTitle;
 };

@@ -7,26 +7,35 @@ import {
   Spinner,
   FormGroup,
   // ErrorMessage,
-} from './ReusableComponents';
-import { Modal, ModalContents, ModalOpenButton } from './Modal';
-import { Logo } from './logo';
-// import { useAsync } from './utils/hooks';
+} from './components/bookshelf/reusableComponents';
+import {
+  Modal,
+  ModalContents,
+  ModalOpenButton,
+} from './components/bookshelf/modal';
+import { Logo } from './components/bookshelf/logo';
+import useLoginUser from './hooks/useLoginHook';
+import { useForm } from 'react-hook-form';
 
-const LoginForm = ({ onSubmit, submitButton }) => {
-  // const { isLoading, isError, error, run } = useAsync();
-  function handleSubmit(event) {
-    event.preventDefault();
-    const { username, password } = event.target.elements;
+function LoginForm({ submitButton, onFormSubmit }) {
+  const { register, handleSubmit } = useForm();
 
-    onSubmit({
-      username: username.value,
-      password: password.value,
-    });
-  }
+  const { isLoading, mutateAsync } = useLoginUser();
+
+  // const onSubmit = handleSubmit(data => {
+  //   console.log('Data from post form component', data);
+  //   return onFormSubmit(data);
+  // });
+
+  const onSubmit = handleSubmit(async userLoginValue => {
+    console.log(userLoginValue);
+    await mutateAsync(userLoginValue);
+    // setIsLoggedIn(true);
+  });
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -40,11 +49,11 @@ const LoginForm = ({ onSubmit, submitButton }) => {
     >
       <FormGroup>
         <label htmlFor="username">Username</label>
-        <Input id="username" />
+        <Input id="username" {...register('username')} />
       </FormGroup>
       <FormGroup>
         <label htmlFor="password">Password</label>
-        <Input id="password" type="password" />
+        <Input id="password" type="password" {...register('password')} />
       </FormGroup>
       <div>
         {React.cloneElement(
@@ -53,16 +62,23 @@ const LoginForm = ({ onSubmit, submitButton }) => {
           ...(Array.isArray(submitButton.props.children)
             ? submitButton.props.children
             : [submitButton.props.children]),
-          <Spinner style={{ marginLeft: 5 }} />,
-          // isLoading ? <Spinner style={{ marginLeft: 5 }} /> : null,
+          isLoading ? <Spinner css={{ marginLeft: 5 }} /> : null,
         )}
       </div>
       {/* {isError ? <ErrorMessage error={error} /> : null} */}
     </form>
   );
-};
+}
 
-function UnauthenticatedApp({ login, register }) {
+function UnauthenticatedApp({ user, isLoggedIn, setIsLoggedIn }) {
+  const { isLoading, mutateAsync, isError, error } = useLoginUser();
+  const { handleSubmit } = useForm();
+
+  const onFormSubmit = async data => {
+    console.log('Test', data);
+    await mutateAsync({ ...data });
+    setIsLoggedIn(true);
+  };
   return (
     <div
       style={{
@@ -89,7 +105,7 @@ function UnauthenticatedApp({ login, register }) {
           </ModalOpenButton>
           <ModalContents aria-label="Login form" title="Login">
             <LoginForm
-              onSubmit={login}
+              onSubmit={handleSubmit(onFormSubmit)}
               submitButton={<Button variant="primary">Login</Button>}
             />
           </ModalContents>
@@ -99,10 +115,10 @@ function UnauthenticatedApp({ login, register }) {
             <Button variant="secondary">Register</Button>
           </ModalOpenButton>
           <ModalContents aria-label="Registration form" title="Register">
-            <LoginForm
-              onSubmit={register}
+            {/* <LoginForm
+              // onSubmit={register}
               submitButton={<Button variant="secondary">Register</Button>}
-            />
+            /> */}
           </ModalContents>
         </Modal>
       </div>

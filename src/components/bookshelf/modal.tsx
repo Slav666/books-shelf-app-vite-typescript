@@ -5,8 +5,8 @@ import React, {
   useContext,
   cloneElement,
 } from 'react';
-import { CircleButton } from './ReusableComponents';
-import { Dialog } from './ReusableComponents';
+import { CircleButton } from './reusableComponents';
+import { Dialog } from './reusableComponents';
 
 interface Props {
   title: string;
