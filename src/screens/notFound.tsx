@@ -1,6 +1,7 @@
 import { jsx } from '@emotion/core';
+import React from 'react';
 
-import { Link } from 'components/lib';
+import { Link } from '../components/bookshelf/reusableComponents';
 
 function NotFoundScreen() {
   return (

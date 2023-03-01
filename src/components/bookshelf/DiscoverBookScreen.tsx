@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import useBooksByTitle from '~/hooks/useBooksByTitle';
 import { Tooltip } from '@reach/tooltip';
 import { FaSearch } from 'react-icons/fa';
-import { Input, BookListUL, Spinner } from './ReusableComponents';
+import { Input, BookListUL, Spinner } from './reusableComponents';
 
 function DiscoverBooksScreen() {
   const { title } = useParams();

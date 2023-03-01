@@ -3,43 +3,38 @@ import React, { FC, ReactElement } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from '~/layout/header.component';
 import Footer from '~/layout/footer.component';
-import { AuthenticatedApp } from './components/bookshelf/AuthenticatedApp';
-import { UnauthenticatedApp } from './components/bookshelf/UnAuthenticatedApp';
+import { AuthenticatedApp } from './authenticatedApp';
+import { UnauthenticatedApp } from './unathenticatedapp';
+// import * as auth from '../src/auth-provider';
+import useLoginUser from './hooks/useLoginHook';
 
 const App: FC = (): ReactElement => {
-  const [user, setUser] = React.useState(null);
-
-  const login = form => login(form).then(u => setUser(u));
-  const register = form => register(form).then(u => setUser(u));
-  const logout = () => {
-    logout();
-    setUser(null);
-  };
-  // createdAt: string;
-  // updatedAt: string;
-  // __v: number;
-  // function login(formData) {
-  //   console.log('login', formData);
-  // }
-
-  // function register(formData) {
-  //   console.log('register', formData);
-  // }
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  //  const [user, setUser] = React.useState(null);
+  // const { data: user, error, isError, isLoading } = useLoginUser();
+  // console.log('User', user);
+  const { mutate: user } = useLoginUser();
+  console.log('Test', user);
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
+      {/* <UnauthenticatedApp login={login} />
 
       <Router>
-        <AuthenticatedApp user={user} logout={logout} />
-      </Router>
-      {/* {user ? (
+        <AuthenticatedApp user={user}  />
+      </Router> */}
+      {isLoggedIn ? (
         <Router>
-          <AuthenticatedApp user={user} logout={logout} />
+          <AuthenticatedApp user={user} setIsLoggedIn={setIsLoggedIn} />
         </Router>
       ) : (
-        <UnauthenticatedApp login={login} register={register} />
-      )} */}
+        <UnauthenticatedApp
+          user={user}
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      )}
       <Footer />
     </div>
   );

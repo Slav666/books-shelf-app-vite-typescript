@@ -36,6 +36,7 @@ const Input = styled.input({
   border: '1px solid #f1f1f4',
   background: '#f1f2f7',
   padding: '8px 12px',
+  color: 'red',
 });
 
 const CircleButton = styled.button({
@@ -115,6 +116,30 @@ const Link = styled(RouterLink)({
   },
 });
 
+// const errorMessageVariants = {
+//   stacked: { display: 'block' },
+//   inline: { display: 'inline-block' },
+// };
+
+// function ErrorMessage({ error, variant = 'stacked', ...props }) {
+//   return (
+//     <div
+//       role="alert"
+//       style={[{ color: 'red'}, errorMessageVariants[variant]]}
+//       {...props}
+//     >
+//       <span>There was an error: </span>
+//       <pre
+//         css={[
+//           { whiteSpace: 'break-spaces', margin: '0', marginBottom: -5 },
+//           errorMessageVariants[variant],
+//         ]}
+//       >
+//         {error.message}
+//       </pre>
+//     </div>
+//   );
+// }
 export {
   Button,
   Input,
