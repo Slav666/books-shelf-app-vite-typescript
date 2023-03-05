@@ -13,23 +13,33 @@ import {
   ModalContents,
   ModalOpenButton,
 } from './components/bookshelf/modal';
+import { useNavigate } from 'react-router-dom';
 import { Logo } from './components/bookshelf/logo';
 import useLoginUser from './hooks/useLoginHook';
 import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+// import { useFormValues } from 'vee-validate';
 
-function LoginForm({ submitButton, onFormSubmit }) {
+function LoginForm({ submitButton, user }) {
   const { register, handleSubmit } = useForm();
-
+  // const navigate = useNavigate();
   const { isLoading, mutateAsync } = useLoginUser();
+  console.log('TEST user', user);
 
   // const onSubmit = handleSubmit(data => {
   //   console.log('Data from post form component', data);
   //   return onFormSubmit(data);
   // });
+  // const { mutate: loginUser } = useMutation(userLoginValue => useLoginUser, {
+  //   onSuccess: () => {},
+  // });
 
-  const onSubmit = handleSubmit(async userLoginValue => {
-    console.log(userLoginValue);
-    await mutateAsync(userLoginValue);
+  const onSubmit = handleSubmit(async userLoginValues => {
+    console.log(userLoginValues);
+    await mutateAsync({ ...userLoginValues });
+    // setUser(user);
+    // console.log('USER:', user);
+    // navigate('/discover');
     // setIsLoggedIn(true);
   });
 
@@ -70,15 +80,15 @@ function LoginForm({ submitButton, onFormSubmit }) {
   );
 }
 
-function UnauthenticatedApp({ user, isLoggedIn, setIsLoggedIn }) {
+function UnauthenticatedApp({ user, onFormSubmit }) {
   const { isLoading, mutateAsync, isError, error } = useLoginUser();
+  // const [user, setUser] = React.useState();
   const { handleSubmit } = useForm();
 
-  const onFormSubmit = async data => {
-    console.log('Test', data);
-    await mutateAsync({ ...data });
-    setIsLoggedIn(true);
-  };
+  // const onFormSubmit = async data => {
+  //   console.log('Test', data);
+  //   await mutateAsync({ ...data });
+  // };
   return (
     <div
       style={{
@@ -105,8 +115,8 @@ function UnauthenticatedApp({ user, isLoggedIn, setIsLoggedIn }) {
           </ModalOpenButton>
           <ModalContents aria-label="Login form" title="Login">
             <LoginForm
-              onSubmit={handleSubmit(onFormSubmit)}
               submitButton={<Button variant="primary">Login</Button>}
+              onSubmit={handleSubmit(onFormSubmit)}
             />
           </ModalContents>
         </Modal>
