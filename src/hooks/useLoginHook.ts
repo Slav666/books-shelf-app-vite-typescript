@@ -7,13 +7,18 @@ export default function useLoginUser() {
   const queryClient = useQueryClient();
   return useMutation(
     userLoginValues =>
-      axios.post('/api/login/', userLoginValues).then(res => {
+      axios.patch('/api/login/', userLoginValues).then(res => {
         console.log('data from user login hook', res.data);
+        const data = res.data;
 
-        return { data: res.data, error: false };
+        return data;
       }),
     {
-      // onSuccess: () => queryClient.invalidateQueries(['login']),
+      onSuccess: () => queryClient.invalidateQueries(['login']),
+      // onSuccess: async userLoginValu => {
+      //   queryClient.invalidateQueries(['login']);
+      //   await queryClient.invalidateQueries(['login']);
+      // },
       // onSuccess: data => {
       //   console.log(data);
       //   const message = `Here is user: ${data.username}`;

@@ -13,39 +13,28 @@ import {
   ModalContents,
   ModalOpenButton,
 } from './components/bookshelf/modal';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Logo } from './components/bookshelf/logo';
 import useLoginUser from './hooks/useLoginHook';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+// import { useMutation } from '@tanstack/react-query';
 // import { useFormValues } from 'vee-validate';
 
-function LoginForm({ submitButton, user }) {
+export function LoginForm({ submitButton, onFormSubmit }) {
   const { register, handleSubmit } = useForm();
   // const navigate = useNavigate();
   const { isLoading, mutateAsync } = useLoginUser();
-  console.log('TEST user', user);
-
-  // const onSubmit = handleSubmit(data => {
-  //   console.log('Data from post form component', data);
-  //   return onFormSubmit(data);
-  // });
-  // const { mutate: loginUser } = useMutation(userLoginValue => useLoginUser, {
-  //   onSuccess: () => {},
-  // });
+  // console.log('TEST user', user);
 
   const onSubmit = handleSubmit(async userLoginValues => {
-    console.log(userLoginValues);
     await mutateAsync({ ...userLoginValues });
-    // setUser(user);
-    // console.log('USER:', user);
-    // navigate('/discover');
-    // setIsLoggedIn(true);
+    console.log('user login value', userLoginValues);
+    return onFormSubmit(userLoginValues);
   });
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={onSubmit}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -80,15 +69,8 @@ function LoginForm({ submitButton, user }) {
   );
 }
 
-function UnauthenticatedApp({ user, onFormSubmit }) {
+function UnauthenticatedApp({ onFormSubmit, submitButton }) {
   const { isLoading, mutateAsync, isError, error } = useLoginUser();
-  // const [user, setUser] = React.useState();
-  const { handleSubmit } = useForm();
-
-  // const onFormSubmit = async data => {
-  //   console.log('Test', data);
-  //   await mutateAsync({ ...data });
-  // };
   return (
     <div
       style={{
@@ -116,7 +98,7 @@ function UnauthenticatedApp({ user, onFormSubmit }) {
           <ModalContents aria-label="Login form" title="Login">
             <LoginForm
               submitButton={<Button variant="primary">Login</Button>}
-              onSubmit={handleSubmit(onFormSubmit)}
+              onSubmit={onFormSubmit}
             />
           </ModalContents>
         </Modal>

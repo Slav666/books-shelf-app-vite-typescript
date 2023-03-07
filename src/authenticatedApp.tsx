@@ -5,21 +5,10 @@ import { Button } from '../src/components/bookshelf/reusableComponents';
 import { Routes, Route, Link } from 'react-router-dom';
 import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
 import { NotFoundScreen } from './screens/notFound';
-import useLoginUser from './hooks/useLoginHook';
-import { useMutation } from '@tanstack/react-query';
+// import useLoginUser from './hooks/useLoginHook';
+// import { useMutation } from '@tanstack/react-query';
 
-function AuthenticatedApp({ user }: any) {
-  // const { mutate: loginUser } = useMutation(
-  //   userLoginValues => useLoginUser(userLoginValues),
-  //   {
-  //     onSuccess: () => {
-  //       store.setRequestLoading(false);
-  //       toast.success('You successfully logged in');
-  //       navigate(from);
-  //     },
-  //   },
-  // );
-
+function AuthenticatedApp({ onFormSubmit }) {
   return (
     <React.Fragment>
       <div
@@ -32,7 +21,7 @@ function AuthenticatedApp({ user }: any) {
           color: 'red',
         }}
       >
-        <p style={{ color: 'red' }}>Hello User: {user}</p>
+        <p style={{ color: 'red' }}>Hello User: </p>
         <Button
           variant="secondary"
           style={{ marginRight: '40px', marginTop: '160px' }}
