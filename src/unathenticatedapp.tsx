@@ -13,29 +13,28 @@ import {
   ModalContents,
   ModalOpenButton,
 } from './components/bookshelf/modal';
+// import { useNavigate } from 'react-router-dom';
 import { Logo } from './components/bookshelf/logo';
 import useLoginUser from './hooks/useLoginHook';
 import { useForm } from 'react-hook-form';
+// import { useMutation } from '@tanstack/react-query';
+// import { useFormValues } from 'vee-validate';
 
-function LoginForm({ submitButton, onFormSubmit }) {
+export function LoginForm({ submitButton, onFormSubmit }) {
   const { register, handleSubmit } = useForm();
-
+  // const navigate = useNavigate();
   const { isLoading, mutateAsync } = useLoginUser();
+  // console.log('TEST user', user);
 
-  // const onSubmit = handleSubmit(data => {
-  //   console.log('Data from post form component', data);
-  //   return onFormSubmit(data);
-  // });
-
-  const onSubmit = handleSubmit(async userLoginValue => {
-    console.log(userLoginValue);
-    await mutateAsync(userLoginValue);
-    // setIsLoggedIn(true);
+  const onSubmit = handleSubmit(async userLoginValues => {
+    await mutateAsync({ ...userLoginValues });
+    console.log('user login value', userLoginValues);
+    return onFormSubmit(userLoginValues);
   });
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={onSubmit}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -70,15 +69,8 @@ function LoginForm({ submitButton, onFormSubmit }) {
   );
 }
 
-function UnauthenticatedApp({ user, isLoggedIn, setIsLoggedIn }) {
+function UnauthenticatedApp({ onFormSubmit, submitButton }) {
   const { isLoading, mutateAsync, isError, error } = useLoginUser();
-  const { handleSubmit } = useForm();
-
-  const onFormSubmit = async data => {
-    console.log('Test', data);
-    await mutateAsync({ ...data });
-    setIsLoggedIn(true);
-  };
   return (
     <div
       style={{
@@ -105,8 +97,8 @@ function UnauthenticatedApp({ user, isLoggedIn, setIsLoggedIn }) {
           </ModalOpenButton>
           <ModalContents aria-label="Login form" title="Login">
             <LoginForm
-              onSubmit={handleSubmit(onFormSubmit)}
               submitButton={<Button variant="primary">Login</Button>}
+              onSubmit={onFormSubmit}
             />
           </ModalContents>
         </Modal>

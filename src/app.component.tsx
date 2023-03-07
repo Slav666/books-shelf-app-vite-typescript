@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from '~/layout/header.component';
 import Footer from '~/layout/footer.component';
@@ -8,32 +8,29 @@ import { UnauthenticatedApp } from './unathenticatedapp';
 // import * as auth from '../src/auth-provider';
 import useLoginUser from './hooks/useLoginHook';
 
+
 const App: FC = (): ReactElement => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  //  const [user, setUser] = React.useState(null);
-  // const { data: user, error, isError, isLoading } = useLoginUser();
-  // console.log('User', user);
-  const { mutate: user } = useLoginUser();
-  console.log('Test', user);
+  // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  // const [user, setUser] = React.useState(null);
+  // const user = { username: 'slawomir' };
+
+  const { mutateAsync } = useLoginUser();
+  // console.log('User ', data);
+
+  const onFormSubmit = async data => {
+    console.log(data);
+    await mutateAsync({ ...data });
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      {/* <UnauthenticatedApp login={login} />
-
-      <Router>
-        <AuthenticatedApp user={user}  />
-      </Router> */}
-      {isLoggedIn ? (
+      {user ? (
         <Router>
-          <AuthenticatedApp user={user} setIsLoggedIn={setIsLoggedIn} />
+          <AuthenticatedApp onFormSubmit={onFormSubmit} />
         </Router>
       ) : (
-        <UnauthenticatedApp
-          user={user}
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-        />
+        <UnauthenticatedApp onFormSubmit={onFormSubmit} />
       )}
       <Footer />
     </div>
