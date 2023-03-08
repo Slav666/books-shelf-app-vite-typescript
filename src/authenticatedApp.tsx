@@ -5,10 +5,12 @@ import { Button } from '../src/components/bookshelf/reusableComponents';
 import { Routes, Route, Link } from 'react-router-dom';
 import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
 import { NotFoundScreen } from './screens/notFound';
-// import useLoginUser from './hooks/useLoginHook';
-// import { useMutation } from '@tanstack/react-query';
 
-function AuthenticatedApp({ onFormSubmit }) {
+function AuthenticatedApp({ user, setUser }) {
+  const handleLoggedOut = () => {
+    setUser(null);
+  };
+
   return (
     <React.Fragment>
       <div
@@ -21,11 +23,11 @@ function AuthenticatedApp({ onFormSubmit }) {
           color: 'red',
         }}
       >
-        <p style={{ color: 'red' }}>Hello User: </p>
+        <p style={{ color: 'red' }}>Hello User: {user.username} </p>
         <Button
           variant="secondary"
           style={{ marginRight: '40px', marginTop: '160px' }}
-          // onClick={setIsLoggedIn(false)}
+          onClick={handleLoggedOut}
         >
           Logout
         </Button>
@@ -39,11 +41,6 @@ function AuthenticatedApp({ onFormSubmit }) {
           display: 'grid',
           gridGap: '1em',
           gridTemplateColumns: '1fr 3fr',
-          // [mq.small]: {
-          //   gridTemplateColumns: '1fr',
-          //   gridTemplateRows: 'auto',
-          //   width: '100%',
-          // },
         }}
       >
         <div style={{ position: 'relative' }}>
@@ -89,10 +86,6 @@ function Nav() {
         padding: '1em 1.5em',
         border: '1px solid green',
         borderRadius: '3px',
-        // [mq.small]: {
-        //   position: 'static',
-        //   top: 'auto',
-        // },
       }}
     >
       <ul
@@ -112,9 +105,9 @@ function Nav() {
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/discover" element={<DiscoverBooksScreen />} />
+      <Route element={<DiscoverBooksScreen />} path="/discover" />
       {/* <Route path="/book/:bookId" element={<BookScreen user={user} />} /> */}
-      <Route path="*" element={<NotFoundScreen />} />
+      <Route element={<NotFoundScreen />} path="*" />
     </Routes>
   );
 }
