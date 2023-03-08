@@ -15,9 +15,24 @@ import {
 } from './components/bookshelf/modal';
 import { Logo } from './components/bookshelf/logo';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup
+  .object({
+    username: yup.string().min(3).required(),
+    password: yup.string().min(5).required(),
+  })
+  .required();
 
 export function LoginForm({ onSubmit }) {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   return (
     <form
@@ -31,10 +46,16 @@ export function LoginForm({ onSubmit }) {
       <FormGroup>
         <label htmlFor="username">Username</label>
         <Input {...register('username')} />
+        {errors.username && (
+          <p style={{ color: 'red' }}>{errors.username.message}</p>
+        )}
       </FormGroup>
       <FormGroup>
         <label htmlFor="password">Password</label>
         <Input type="password" {...register('password')} />
+        {errors.password && (
+          <p style={{ color: 'red' }}>{errors.password.message}</p>
+        )}
       </FormGroup>
       <div>
         <button type="submit">Log in</button>
