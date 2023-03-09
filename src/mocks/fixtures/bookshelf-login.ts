@@ -38,4 +38,13 @@ const getSingleUser = getUser => {
   }
 };
 
-export { getSingleUser, getUsers };
+const registerNewUser = newUserData => {
+  if (users.find(user => user.username === newUserData.username)) {
+    return alert('User already registered');
+  } else {
+    users.push(newUserData);
+    return newUserData;
+  }
+};
+
+export { getSingleUser, getUsers, registerNewUser };
