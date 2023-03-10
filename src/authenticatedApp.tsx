@@ -6,7 +6,15 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
 import { NotFoundScreen } from './screens/notFound';
 
-function AuthenticatedApp({ user, setUser }) {
+type UserProps = {
+  user: {
+    username: string;
+    password: string;
+  };
+  setUser: (user: string) => void;
+};
+
+function AuthenticatedApp({ user, setUser }: UserProps) {
   const handleLoggedOut = () => {
     setUser(null);
   };
@@ -25,8 +33,8 @@ function AuthenticatedApp({ user, setUser }) {
       >
         <p style={{ color: 'red' }}>Hello User: {user.username} </p>
         <Button
-          variant="secondary"
           style={{ marginRight: '40px', marginTop: '160px' }}
+          variant="secondary"
           onClick={handleLoggedOut}
         >
           Logout
