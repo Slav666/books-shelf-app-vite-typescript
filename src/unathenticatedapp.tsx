@@ -21,7 +21,9 @@ import useRegisterUser from './hooks/useRegisterHook';
 
 type LoginFormData = yup.InferType<typeof loginSchema>;
 type RegisterFormData = yup.InferType<typeof registerSchema>;
-
+type InputProps = {
+  onSubmit: () => void;
+};
 const loginSchema = yup
   .object({
     username: yup.string().min(3).required(),
@@ -103,7 +105,7 @@ export function RegisterForm() {
   );
 }
 
-export function LoginForm({ onSubmit }) {
+export function LoginForm({ onSubmit }: InputProps) {
   const {
     register,
     handleSubmit,
@@ -152,7 +154,7 @@ export function LoginForm({ onSubmit }) {
   );
 }
 
-function UnauthenticatedApp({ onSubmit }) {
+function UnauthenticatedApp({ onSubmit }: InputProps) {
   return (
     <div
       style={{
