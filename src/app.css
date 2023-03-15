@@ -39,4 +39,13 @@
 
 button {
   font-size: calc(10px + 2vmin);
+  background-color: 'red';
+}
+button:hover {
+  color: 'green';
+  cursor: 'not-allowed';
+}
+button:disabled,
+button[disabled] {
+  color: 'black';
 }
