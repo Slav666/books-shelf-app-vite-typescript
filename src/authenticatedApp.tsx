@@ -5,6 +5,7 @@ import { Button } from '../src/components/bookshelf/reusableComponents';
 import { Routes, Route, Link } from 'react-router-dom';
 import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
 import { NotFoundScreen } from './screens/notFound';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 type UserProps = {
   user: {
@@ -56,6 +57,9 @@ function AuthenticatedApp({ user, setUser }: UserProps) {
         </div>
         <main style={{ width: '100%' }}>
           <AppRoutes />
+          {/* <Router>
+            <AuthenticatedApp setUser={setUser} user={user} />
+          </Router> */}
         </main>
       </div>
     </React.Fragment>
