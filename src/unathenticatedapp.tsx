@@ -50,7 +50,6 @@ export function RegisterForm() {
     delete userRegisterValues.confirmPassword;
     // console.log('new register user', test);
     await mutateAsync({ ...userRegisterValues });
-    // setUser(response);
     resetField('username');
     resetField('password');
     resetField('confirmPassword');
@@ -58,12 +57,13 @@ export function RegisterForm() {
   const {
     register,
     handleSubmit,
+    getValues,
     resetField,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema),
   });
-
+  console.log('Values from register', getValues());
   return (
     <form
       style={{
@@ -71,15 +71,7 @@ export function RegisterForm() {
         flexDirection: 'column',
         alignItems: 'stretch',
       }}
-      onSubmit={handleSubmit(async userRegisterValues => {
-        delete userRegisterValues.confirmPassword;
-        // console.log('new register user', test);
-        await mutateAsync({ ...userRegisterValues });
-        // setUser(response);
-        resetField('username');
-        resetField('password');
-        resetField('confirmPassword');
-      })}
+      onSubmit={handleSubmit(values => onSubmit(values))}
     >
       <FormGroup>
         <label htmlFor="username">Username</label>
@@ -127,51 +119,16 @@ export function RegisterForm() {
 }
 
 export function LoginForm({ onSubmit, user }) {
-  // console.log('resetForm ', resetForm);
-  // const [user, setUser] = React.useState(null);
-  const { status } = useLoginUser();
   const {
     register,
     handleSubmit,
+    getValues,
     reset,
     formState,
-    formState: { errors, isSubmitSuccessful, isDirty },
+    formState: { errors, isDirty },
   } = useForm<LoginFormData>({
-    // defaultValues: { username: '', password: '' },
     resolver: yupResolver(loginSchema),
   });
-  console.log('is dirty', isDirty);
-
-  // if (status === 'loading') {
-  //   return (
-  //     <span>
-  //       <Spinner />
-  //     </span>
-  //   );
-  // }
-  // useEffect(() => {
-  //   if (formState.isSubmitSuccessful) {
-  //     reset({ username: '', password: '' });
-  //   }
-  // }, [formState, reset]);
-
-  // useEffect(() => {
-  //   resetField('username');
-  //   resetField('password');
-  // }, [resetField]);
-  // if (user === null) {
-  //   resetField('username'), resetField('password');
-  // }
-  // const test = () => {
-  //   resetField(resetForm);
-  // };
-  // useEffect(() => {
-  //   resetField('username');
-  // }, [resetField]);
-  // const resetForm = async () => {
-  //   await onSubmit(), await resetField('username');
-  // };
-  console.log('Object keys errors', errors);
   return (
     <form
       style={{
@@ -179,7 +136,7 @@ export function LoginForm({ onSubmit, user }) {
         flexDirection: 'column',
         alignItems: 'stretch',
       }}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(values => onSubmit(values))}
     >
       <FormGroup>
         <label htmlFor="username">Username</label>
@@ -207,13 +164,12 @@ export function LoginForm({ onSubmit, user }) {
           //   cursor: 'not-allowed',
           //   backgroundColor: 'yellow',
           // }}
-          type="submit"
+
           disabled={Object.keys(errors).length > 0 || !isDirty}
-          // onSubmit={() => reset({ username: '', password: '' })}
+          type="submit"
         >
           Log in
         </button>
-        {/* <button type="submit">Register</button> */}
         {/* {React.cloneElement(
           submitButton,
           { type: 'submit' },
@@ -229,8 +185,6 @@ export function LoginForm({ onSubmit, user }) {
 }
 
 function UnauthenticatedApp({ onSubmit, user }) {
-  // const [user, setUser] = React.useState(null);
-  // const { mutateAsync: login } = useLoginUser();
   return (
     <div
       style={{
