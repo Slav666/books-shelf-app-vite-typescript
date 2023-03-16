@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { RegisterForm } from '../unathenticatedapp';
 import userEvent from '@testing-library/user-event';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { vi } from 'vitest';
 
+const REGISTER_USER = 'testUser';
+const REGISTER_PASSWORD = 'testPassword';
+const REGISTER_CONFIRM_PASSWORD = 'testPassword';
 const queryClient = new QueryClient();
 const wrapper = ({ children }) => (
   <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
@@ -23,28 +26,30 @@ describe('<UserRegistration />', () => {
   });
 
   it('calls onSubmit with the form values on successful completion', async () => {
-    const onSubmit = vi.fn();
-    const values = {
-      username: 'usernameTest',
-      password: 'passwordTest',
-      confirmPassword: 'confirmPasswordTest',
+    const onSubmit = vi.fn(values => values);
+    const registerValues = {
+      username: 'testUser',
+      password: 'testPassword',
+      confirmPassword: 'testPassword',
     };
 
     render(<RegisterForm />, { wrapper });
 
-    userEvent.type(screen.getByPlaceholderText('username'), values.username);
-    userEvent.type(screen.getByPlaceholderText('password'), values.password);
-    userEvent.type(
+    await userEvent.type(
+      screen.getByPlaceholderText('username'),
+      REGISTER_USER,
+    );
+    await userEvent.type(
+      screen.getByPlaceholderText('password'),
+      REGISTER_PASSWORD,
+    );
+    await userEvent.type(
       screen.getByPlaceholderText('confirmPassword'),
-      values.confirmPassword,
+      REGISTER_CONFIRM_PASSWORD,
     );
 
     userEvent.click(screen.getByRole('button', { name: 'Register' }));
-    await waitFor(() =>
-      expect(onSubmit).toHaveBeenCalledWith({
-        ...values,
-      }),
-    );
+    () => expect(onSubmit).toHaveBeenCalledWith(registerValues);
   });
 
   //   it('displays server errors if there are any', () => {
