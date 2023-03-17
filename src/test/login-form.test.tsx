@@ -15,9 +15,17 @@ const wrapper = ({ children }) => (
   <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );
 describe('Login Form Component', () => {
+  const user = { username: 'testUser', password: 'testPassword' };
+  const onSubmit = vi.fn(values => values);
+  it('should render a form', () => {
+    render(<LoginForm user={user} onSubmit={onSubmit} />, { wrapper });
+
+    expect(screen.getByPlaceholderText('username')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('password')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Log in' })).toBeInTheDocument();
+  });
+
   it('should call `onSubmit` function when form is valid and `Login` button clicked', async () => {
-    const user = { username: 'testUser', password: 'testPassword' };
-    const onSubmit = vi.fn(values => values);
     render(<LoginForm user={user} onSubmit={onSubmit} />, { wrapper });
 
     await userEvent.type(screen.getByPlaceholderText('username'), USER_TEXT);
@@ -30,57 +38,32 @@ describe('Login Form Component', () => {
     await waitFor(() => expect(onSubmit).toHaveBeenCalledWith(user));
   });
 
-  it('should render a form', () => {
-    const user = { username: 'testUser', password: 'testPassword' };
-    const onSubmit = vi.fn(values => values);
-    render(<LoginForm user={user} onSubmit={onSubmit} />, { wrapper });
-
-    expect(screen.getByPlaceholderText('username')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('password')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Log in' })).toBeInTheDocument();
-  });
-
   it('should enable `Login` button when form is valid', async () => {
-    const user = { username: 'testUser', password: 'testPassword' };
-    const onSubmit = vi.fn(values => values);
     render(<LoginForm user={user} onSubmit={onSubmit} />, { wrapper });
 
     expect(screen.getByRole('button', { name: 'Log in' })).toBeDisabled();
 
     await userEvent.type(screen.getByPlaceholderText('username'), 'testUser');
 
-    await userEvent.type(screen.getByPlaceholderText('password'), 'test');
+    await userEvent.type(
+      screen.getByPlaceholderText('password'),
+      'testPassword',
+    );
 
     expect(userEvent.click(screen.getByRole('button', { name: 'Log in' })))
       .toBeEnabled;
-
   });
 
   it('should disable `login`button when form is invalid', async () => {
-    const user = { username: 'testUser', password: 'testPassword' };
-    const onSubmit = vi.fn(values => values);
     render(<LoginForm user={user} onSubmit={onSubmit} />, { wrapper });
 
     const loginButton = screen.getByRole('button', { name: 'Log in' });
+    expect(loginButton).toBeDisabled();
 
-    userEvent.type(screen.getByPlaceholderText('username'), 'testUser');
+    await userEvent.type(screen.getByPlaceholderText('username'), 'te');
 
-    userEvent.type(screen.getByPlaceholderText('password'), 'testPassword');
+    await userEvent.type(screen.getByPlaceholderText('password'), 'te');
+
     expect(userEvent.click(loginButton)).toBeDisabled;
   });
-
-  // it('should call `onSubmit` function when form is valid and `Login` button clicked', async () => {
-  //   render(<LoginForm user={user} onSubmit={onSubmit} />, { wrapper });
-
-  //   userEvent.type(screen.getByPlaceholderText('username'), USER_TEXT);
-  //   userEvent.type(screen.getByPlaceholderText('password'), PASSWORD_TEXT);
-
-  //   userEvent.click(screen.getByRole('button', { name: 'Log in' }));
-  //   await waitFor(() =>
-  //     expect(onSubmit).toHaveBeenCalledWith({
-  //       username: user.username,
-  //       password: user.password,
-  //     }),
-  //   );
-  // });
 });

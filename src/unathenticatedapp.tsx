@@ -1,6 +1,6 @@
 import { jsx } from '@emotion/core';
 
-// import * as React from 'react';
+import React, { FC } from 'react';
 import {
   Input,
   Button,
@@ -18,13 +18,22 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useRegisterUser from './hooks/useRegisterHook';
-import React, { useEffect } from 'react';
-import useLoginUser from './hooks/useLoginHook';
+
 type LoginFormData = yup.InferType<typeof loginSchema>;
 type RegisterFormData = yup.InferType<typeof registerSchema>;
-type InputProps = {
-  onSubmit: () => void;
-};
+interface InputLoginProps {
+  onSubmit: (user: { username: string; password: string }) => void;
+  user: {
+    username: string;
+    password: string;
+  };
+}
+
+// interface Values {
+//   username: string;
+//   password: string;
+// }
+
 const loginSchema = yup
   .object({
     username: yup.string().min(3).required(),
@@ -44,11 +53,10 @@ const registerSchema = yup
   .required();
 
 export function RegisterForm() {
-  const { mutateAsync } = useRegisterUser();
-
+  const { mutateAsync, status } = useRegisterUser();
+  const isLoading = status === 'loading';
   const onSubmit = async userRegisterValues => {
     delete userRegisterValues.confirmPassword;
-    // console.log('new register user', test);
     await mutateAsync({ ...userRegisterValues });
     resetField('username');
     resetField('password');
@@ -57,13 +65,11 @@ export function RegisterForm() {
   const {
     register,
     handleSubmit,
-    getValues,
     resetField,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema),
   });
-  console.log('Values from register', getValues());
   return (
     <form
       style={{
@@ -103,32 +109,26 @@ export function RegisterForm() {
         )}
       </FormGroup>
       <div>
-        <button type="submit">Register</button>
-        {/* <button type="submit">Register</button> */}
-        {/* {React.cloneElement(
-          submitButton,
-          { type: 'submit' },
-          ...(Array.isArray(submitButton.props.children)
-            ? submitButton.props.children
-            : [submitButton.props.children]), */}
-        {<Spinner style={{ marginLeft: 5 }} />}
+        <button disabled={!isDirty && !isValid} type="submit">
+          Register
+        </button>
+        {isLoading ? <Spinner style={{ marginLeft: 5 }} /> : null}
       </div>
       {/* {isError ? <ErrorMessage error={error} /> : null} */}
     </form>
   );
 }
 
-export function LoginForm({ onSubmit, user }) {
+export const LoginForm: FC<InputLoginProps> = ({ onSubmit, user }) => {
   const {
     register,
     handleSubmit,
-    getValues,
-    reset,
-    formState,
-    formState: { errors, isDirty },
+    formState: { errors, isDirty, isValid },
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
   });
+  const { status } = useRegisterUser();
+  const isLoading = status === 'loading';
   return (
     <form
       style={{
@@ -157,34 +157,17 @@ export function LoginForm({ onSubmit, user }) {
         )}
       </FormGroup>
       <div>
-        <button
-          // className="button"
-          // style={{
-          //   color: 'green',
-          //   cursor: 'not-allowed',
-          //   backgroundColor: 'yellow',
-          // }}
-
-          disabled={Object.keys(errors).length > 0 || !isDirty}
-          type="submit"
-        >
+        <button disabled={!isDirty && !isValid} type="submit">
           Log in
         </button>
-        {/* {React.cloneElement(
-          submitButton,
-          { type: 'submit' },
-          ...(Array.isArray(submitButton.props.children)
-            ? submitButton.props.children
-            : [submitButton.props.children]),
-          isLoading ? <Spinner css={{ marginLeft: 5 }} /> : null,
-        )} */}
+        {isLoading ? <Spinner style={{ marginLeft: 5 }} /> : null}
       </div>
       {/* {isError ? <ErrorMessage error={error} /> : null} */}
     </form>
   );
-}
+};
 
-function UnauthenticatedApp({ onSubmit, user }) {
+function UnauthenticatedApp({ onSubmit, user }: InputLoginProps) {
   return (
     <div
       style={{
@@ -218,10 +201,7 @@ function UnauthenticatedApp({ onSubmit, user }) {
             <Button variant="secondary">Register</Button>
           </ModalOpenButton>
           <ModalContents aria-label="Registration form" title="Register">
-            <RegisterForm
-            // onSubmit={onSubmit}
-            // submitButton={<Button variant="secondary">Register</Button>}
-            />
+            <RegisterForm />
           </ModalContents>
         </Modal>
       </div>

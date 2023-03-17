@@ -1,20 +1,26 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { RegisterForm } from '../unathenticatedapp';
 import userEvent from '@testing-library/user-event';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { vi } from 'vitest';
+import { Spinner } from '~/components/bookshelf/reusableComponents';
+import { values } from 'cypress/types/lodash';
 
-const REGISTER_USER = 'testUser';
-const REGISTER_PASSWORD = 'testPassword';
-const REGISTER_CONFIRM_PASSWORD = 'testPassword';
 const queryClient = new QueryClient();
 const wrapper = ({ children }) => (
   <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );
-
+// const renderComponent = ({ user = 'testUser', isLoading = false } = {}) => {
+//   const onSubmit = vi.fn(values => values);
+//   const utils = render(
+//     <RegisterForm user={user} onSubmit={onSubmit} isLoading={isLoading} />,
+//     { wrapper },
+//   );
+//   return { ...utils, onSubmit, user };
+// };
 describe('<UserRegistration />', () => {
   it('shows the user registration form', () => {
     render(<RegisterForm />, { wrapper });
@@ -29,38 +35,33 @@ describe('<UserRegistration />', () => {
     const onSubmit = vi.fn(values => values);
     const registerValues = {
       username: 'testUser',
-      password: 'testPassword',
-      confirmPassword: 'testPassword',
+      password: 'password',
+      confirmPassword: 'password',
     };
 
     render(<RegisterForm />, { wrapper });
 
     await userEvent.type(
       screen.getByPlaceholderText('username'),
-      REGISTER_USER,
+      registerValues.username,
     );
     await userEvent.type(
       screen.getByPlaceholderText('password'),
-      REGISTER_PASSWORD,
+      registerValues.password,
     );
     await userEvent.type(
       screen.getByPlaceholderText('confirmPassword'),
-      REGISTER_CONFIRM_PASSWORD,
+      registerValues.confirmPassword,
     );
 
     userEvent.click(screen.getByRole('button', { name: 'Register' }));
-    () => expect(onSubmit).toHaveBeenCalledWith(registerValues);
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith(registerValues));
   });
 
-  //   it('displays server errors if there are any', () => {
-  //     render(<RegisterForm serverErrors={['test error']} />);
-
-  //     expect(screen.getByText(/test\serror/i)).toBeInTheDocument();
-  //   });
-
-  //   it('shows a loading spinner when loading', () => {
-  //     render(<RegisterForm isLoading={true} />);
-
-  //     expect(screen.getAllByRole('progressbar')[1]).toBeInTheDocument();
-  //   });
+  // it('shows a loading spinner when loading', () => {
+  //   renderComponent({ isLoading: true });
+  //   expect(
+  //     screen.getByRole('progressbar', { hidden: true }),
+  //   ).toBeInTheDocument();
+  // });
 });
