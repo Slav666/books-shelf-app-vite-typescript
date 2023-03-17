@@ -81,6 +81,7 @@ const Spinner = styled(FaSpinner)({
 });
 Spinner.defaultProps = {
   'aria-label': 'loading',
+  role: 'progressbar',
 };
 
 function FullPageSpinner() {
@@ -116,21 +117,21 @@ const Link = styled(RouterLink)({
   },
 });
 
-// const errorMessageVariants = {
-//   stacked: { display: 'block' },
-//   inline: { display: 'inline-block' },
-// };
+const errorMessageVariants = {
+  stacked: { display: 'block' },
+  inline: { display: 'inline-block' },
+};
 
 // function ErrorMessage({ error, variant = 'stacked', ...props }) {
 //   return (
 //     <div
 //       role="alert"
-//       style={[{ color: 'red'}, errorMessageVariants[variant]]}
+//       style={[{ color: 'red' }, errorMessageVariants[variant]]}
 //       {...props}
 //     >
 //       <span>There was an error: </span>
 //       <pre
-//         css={[
+//         style={[
 //           { whiteSpace: 'break-spaces', margin: '0', marginBottom: -5 },
 //           errorMessageVariants[variant],
 //         ]}
