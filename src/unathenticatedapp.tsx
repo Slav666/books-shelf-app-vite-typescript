@@ -1,12 +1,11 @@
 import { jsx } from '@emotion/core';
 
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import {
   Input,
   Button,
   Spinner,
   FormGroup,
-  // ErrorMessage,
 } from './components/bookshelf/reusableComponents';
 import {
   Modal,
@@ -29,11 +28,6 @@ interface InputLoginProps {
   };
 }
 
-// interface Values {
-//   username: string;
-//   password: string;
-// }
-
 const loginSchema = yup
   .object({
     username: yup.string().min(3).required(),
@@ -52,9 +46,10 @@ const registerSchema = yup
   })
   .required();
 
-export function RegisterForm() {
+export const RegisterForm = () => {
   const { mutateAsync, status } = useRegisterUser();
   const isLoading = status === 'loading';
+
   const onSubmit = async userRegisterValues => {
     delete userRegisterValues.confirmPassword;
     await mutateAsync({ ...userRegisterValues });
@@ -66,10 +61,14 @@ export function RegisterForm() {
     register,
     handleSubmit,
     resetField,
+    setFocus,
     formState: { errors, isDirty, isValid },
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema),
   });
+  useEffect(() => {
+    setFocus('username');
+  }, [setFocus]);
   return (
     <form
       style={{
@@ -114,21 +113,26 @@ export function RegisterForm() {
         </button>
         {isLoading ? <Spinner style={{ marginLeft: 5 }} /> : null}
       </div>
-      {/* {isError ? <ErrorMessage error={error} /> : null} */}
     </form>
   );
-}
+};
 
 export const LoginForm: FC<InputLoginProps> = ({ onSubmit, user }) => {
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors, isDirty, isValid },
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
   });
   const { status } = useRegisterUser();
   const isLoading = status === 'loading';
+
+  useEffect(() => {
+    setFocus('username');
+  }, [setFocus]);
+
   return (
     <form
       style={{
@@ -157,17 +161,24 @@ export const LoginForm: FC<InputLoginProps> = ({ onSubmit, user }) => {
         )}
       </FormGroup>
       <div>
-        <button disabled={!isDirty && !isValid} type="submit">
+        <button
+          disabled={!isDirty || !!Object.keys(errors).length}
+          style={
+            !isDirty || !!Object.keys(errors).length
+              ? { backgroundColor: 'red', cursor: 'not-allowed' }
+              : { backgroundColor: 'green', cursor: 'pointer' }
+          }
+          type="submit"
+        >
           Log in
         </button>
         {isLoading ? <Spinner style={{ marginLeft: 5 }} /> : null}
       </div>
-      {/* {isError ? <ErrorMessage error={error} /> : null} */}
     </form>
   );
 };
 
-function UnauthenticatedApp({ onSubmit, user }: InputLoginProps) {
+const UnauthenticatedApp = ({ onSubmit, user }: InputLoginProps) => {
   return (
     <div
       style={{
@@ -207,6 +218,6 @@ function UnauthenticatedApp({ onSubmit, user }: InputLoginProps) {
       </div>
     </div>
   );
-}
+};
 
 export { UnauthenticatedApp };

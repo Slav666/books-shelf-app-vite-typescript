@@ -81,12 +81,12 @@ const Spinner = styled(FaSpinner)({
 });
 Spinner.defaultProps = {
   'aria-label': 'loading',
-  role: 'progressbar',
 };
 
 function FullPageSpinner() {
   return (
     <div
+      data-testid="spiner"
       style={{
         fontSize: '4em',
         height: '100vh',

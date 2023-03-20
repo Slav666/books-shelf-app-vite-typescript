@@ -5,7 +5,6 @@ import { Button } from '../src/components/bookshelf/reusableComponents';
 import { Routes, Route, Link } from 'react-router-dom';
 import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
 import { NotFoundScreen } from './screens/notFound';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 type UserProps = {
   user: {
@@ -15,7 +14,7 @@ type UserProps = {
   setUser: (user: string) => void;
 };
 
-function AuthenticatedApp({ user, setUser }: UserProps) {
+const AuthenticatedApp = ({ user, setUser }: UserProps) => {
   const handleLoggedOut = () => {
     setUser(null);
   };
@@ -57,16 +56,13 @@ function AuthenticatedApp({ user, setUser }: UserProps) {
         </div>
         <main style={{ width: '100%' }}>
           <AppRoutes />
-          {/* <Router>
-            <AuthenticatedApp setUser={setUser} user={user} />
-          </Router> */}
         </main>
       </div>
     </React.Fragment>
   );
-}
+};
 
-function NavLink(props) {
+const NavLink = props => {
   return (
     <Link
       style={{
@@ -87,9 +83,9 @@ function NavLink(props) {
       {...props}
     />
   );
-}
+};
 
-function Nav() {
+const Nav = () => {
   return (
     <nav
       style={{
@@ -112,9 +108,9 @@ function Nav() {
       </ul>
     </nav>
   );
-}
+};
 
-function AppRoutes() {
+const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<DiscoverBooksScreen />} path="/discover" />
@@ -122,6 +118,6 @@ function AppRoutes() {
       <Route element={<NotFoundScreen />} path="*" />
     </Routes>
   );
-}
+};
 
 export { AuthenticatedApp };
