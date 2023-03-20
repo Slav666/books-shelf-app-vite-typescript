@@ -28,14 +28,7 @@ const getSingleUser = getUser => {
     user =>
       user.username === getUser.username && user.password === getUser.password,
   );
-  if (
-    currentUser.username === getUser.username &&
-    currentUser.password === getUser.password
-  ) {
-    return currentUser;
-  } else {
-    return false;
-  }
+  return currentUser;
 };
 
 const registerNewUser = newUserData => {

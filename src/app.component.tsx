@@ -26,6 +26,7 @@ const App: FC = (): ReactElement => {
       ) : (
         <UnauthenticatedApp onSubmit={onSubmit} user={user} />
       )}
+
       <Footer />
     </div>
   );

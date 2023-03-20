@@ -806,9 +806,8 @@ export let books = [
 ];
 
 const getBooks = () => books;
-const getBooksByTitle = (title: string) => {
+const getBooksByTitle = () => {
   const booksByTitle = books.map(book => book);
-  console.log('books by title', booksByTitle);
   return booksByTitle;
 };
 export { getBooks, getBooksByTitle };

@@ -6,7 +6,6 @@ export default function useRegisterUser() {
   return useMutation(
     values =>
       axios.post('/api/register/', values).then(res => {
-        console.log('data from register hook', res.data);
         return res.data;
       }),
     {

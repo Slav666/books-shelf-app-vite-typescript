@@ -24,32 +24,32 @@ export const callAll =
     fns.forEach(fn => fn && fn(...args));
 const ModalContext = createContext();
 
-export function Modal(props) {
+export const Modal = props => {
   const [isOpen, setIsOpen] = useState(false);
 
   return <ModalContext.Provider value={[isOpen, setIsOpen]} {...props} />;
-}
+};
 
-export function ModalOpenButton({ children: child }) {
+export const ModalOpenButton = ({ children: child }) => {
   const [, setIsOpen] = useContext(ModalContext);
   return cloneElement(child, {
     onClick: callAll(() => setIsOpen(true), child.props.onClick),
   });
-}
+};
 
-export function ModalDismissButton({ children: child }) {
+export const ModalDismissButton = ({ children: child }) => {
   const [, setIsOpen] = useContext(ModalContext);
   return cloneElement(child, {
     onClick: callAll(() => setIsOpen(false), child.props.onClick),
   });
-}
+};
 
-export function ModalContentsBase(props) {
+export const ModalContentsBase = props => {
   const [isOpen, setIsOpen] = useContext(ModalContext);
   return (
     <Dialog isOpen={isOpen} onDismiss={() => setIsOpen(false)} {...props} />
   );
-}
+};
 
 export const ModalContents: React.FC<Props> = ({
   title,
