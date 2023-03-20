@@ -7,7 +7,7 @@ import { Tooltip } from '@reach/tooltip';
 import { FaSearch } from 'react-icons/fa';
 import { Input, BookListUL, Spinner } from './reusableComponents';
 
-function DiscoverBooksScreen() {
+function DiscoverBooksScreen({ user }) {
   const { title } = useParams();
   const { data } = useBooksByTitle(title);
 
@@ -71,7 +71,7 @@ function DiscoverBooksScreen() {
           }
         })
         .map((val, key) => {
-          return <BookRow key={key} val={val} />;
+          return <BookRow key={key} val={val} user={user} />;
         })}
     </div>
   );

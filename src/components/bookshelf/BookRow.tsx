@@ -1,10 +1,16 @@
 import React from 'react';
+import useLoginUser from '~/hooks/useLoginHook';
 
 export interface Props {
   val: any;
 }
 
-const BookRow = ({ val }: Props) => {
+const BookRow = ({ val, user }: Props) => {
+  const addBookHandler = () => {
+    console.log('Should be login User', user);
+    console.log('Val id', val.id);
+  };
+
   return (
     <div
       style={{
@@ -71,6 +77,21 @@ const BookRow = ({ val }: Props) => {
           <small style={{ whiteSpace: 'break-spaces', display: 'block' }}>
             {val.synopsis.substring(0, 500)}...
           </small>
+        </div>
+        {user.username}
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <button
+            style={{ backgroundColor: 'green', marginRight: '2px' }}
+            onClick={addBookHandler}
+          >
+            Add book to reading
+          </button>
+          <button style={{ backgroundColor: 'yellow', marginRight: '2px' }}>
+            Add book as read
+          </button>
+          <button style={{ backgroundColor: 'blue' }}>
+            Remove book from the list
+          </button>
         </div>
       </div>
     </div>

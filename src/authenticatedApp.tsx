@@ -55,7 +55,7 @@ const AuthenticatedApp = ({ user, setUser }: UserProps) => {
           <Nav />
         </div>
         <main style={{ width: '100%' }}>
-          <AppRoutes />
+          <AppRoutes user={user} />
         </main>
       </div>
     </React.Fragment>
@@ -110,10 +110,10 @@ const Nav = () => {
   );
 };
 
-const AppRoutes = () => {
+const AppRoutes = ({ user }) => {
   return (
     <Routes>
-      <Route element={<DiscoverBooksScreen />} path="/discover" />
+      <Route element={<DiscoverBooksScreen user={user} />} path="/discover" />
       {/* <Route path="/book/:bookId" element={<BookScreen user={user} />} /> */}
       <Route element={<NotFoundScreen />} path="*" />
     </Routes>
