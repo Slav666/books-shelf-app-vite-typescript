@@ -805,9 +805,9 @@ export let books = [
   },
 ];
 
-const getBooks = () => books;
-const getBooksByTitle = () => {
-  const booksByTitle = books.map(book => book);
-  return booksByTitle;
+const getBooks = () => {
+  const listOfBooks = books.map(book => book);
+  return listOfBooks;
 };
-export { getBooks, getBooksByTitle };
+
+export { getBooks };

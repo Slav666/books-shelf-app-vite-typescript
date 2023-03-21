@@ -1,9 +1,10 @@
-import { jsx } from '@emotion/core';
+// import { jsx } from '@emotion/core';
 
-import * as React from 'react';
+import React from 'react';
 import { Button } from '../src/components/bookshelf/reusableComponents';
 import { Routes, Route, Link } from 'react-router-dom';
 import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
+import { BookScreen } from './components/bookshelf/book';
 import { NotFoundScreen } from './screens/notFound';
 
 type UserProps = {

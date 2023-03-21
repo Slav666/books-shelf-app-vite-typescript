@@ -1,14 +1,15 @@
 import React from 'react';
-import useLoginUser from '~/hooks/useLoginHook';
+import useAddBookToUser from '~/hooks/useAddBookToUser';
 
 export interface Props {
   val: any;
 }
 
 const BookRow = ({ val, user }: Props) => {
-  const addBookHandler = () => {
-    console.log('Should be login User', user);
-    console.log('Val id', val.id);
+  const { mutateAsync } = useAddBookToUser({ ...user, val });
+
+  const addBookHandler = async () => {
+    await mutateAsync({ ...user, val });
   };
 
   return (
@@ -79,6 +80,7 @@ const BookRow = ({ val, user }: Props) => {
           </small>
         </div>
         {user.username}
+
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <button
             style={{ backgroundColor: 'green', marginRight: '2px' }}
