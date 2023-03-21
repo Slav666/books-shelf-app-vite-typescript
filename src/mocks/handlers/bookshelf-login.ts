@@ -1,6 +1,10 @@
 import { rest } from 'msw';
 
-import { getSingleUser, getUsers } from '../fixtures/bookshelf-login';
+import {
+  getSingleUser,
+  getUsers,
+  addBookToUser,
+} from '../fixtures/bookshelf-login';
 
 const URL_PATH = '/api/login/';
 const getSingleUserHandler = rest.get(`${URL_PATH}`, (req, res, ctx) => {
@@ -14,6 +18,16 @@ const userLoggedInHandler = rest.post(`${URL_PATH}`, (req, res, ctx) => {
     : res(ctx.status(400), ctx.json({ error: 'Bad request' }));
 });
 
-const loginHandlers = [getSingleUserHandler, userLoggedInHandler];
+const addBookToUserHandler = rest.put(`${URL_PATH}`, (req, res, ctx) => {
+  const result = addBookToUser(req.params);
+  console.log('result msw handler', result);
+  return res(ctx.status(200), ctx.json(result));
+});
+
+const loginHandlers = [
+  getSingleUserHandler,
+  userLoggedInHandler,
+  addBookToUserHandler,
+];
 
 export { loginHandlers };
