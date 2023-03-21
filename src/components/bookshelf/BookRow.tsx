@@ -8,7 +8,7 @@ export interface Props {
 const BookRow = ({ val, user }: Props) => {
   const { mutateAsync } = useAddBookToUser({ ...user, val });
 
-  const addBookHandler = async () => {
+  const addBookToUserHandler = async () => {
     await mutateAsync({ ...user, val });
   };
 
@@ -84,7 +84,7 @@ const BookRow = ({ val, user }: Props) => {
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <button
             style={{ backgroundColor: 'green', marginRight: '2px' }}
-            onClick={addBookHandler}
+            onClick={addBookToUserHandler}
           >
             Add book to reading
           </button>

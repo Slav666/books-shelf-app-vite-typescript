@@ -108,9 +108,26 @@ export const RegisterForm = () => {
         )}
       </FormGroup>
       <div>
-        <button disabled={!isDirty && !isValid} type="submit">
+        <Button
+          disabled={!isDirty && !isValid}
+          style={
+            !isDirty || !!Object.keys(errors).length
+              ? {
+                  backgroundColor: 'red',
+                  cursor: 'not-allowed',
+                  marginTop: '1rem',
+                }
+              : {
+                  backgroundColor: 'green',
+                  cursor: 'pointer',
+                  marginTop: '1rem',
+                }
+          }
+          type="submit"
+          variant="primary"
+        >
           Register
-        </button>
+        </Button>
         {isLoading ? <Spinner style={{ marginLeft: 5 }} /> : null}
       </div>
     </form>
@@ -161,17 +178,26 @@ export const LoginForm: FC<InputLoginProps> = ({ onSubmit, user }) => {
         )}
       </FormGroup>
       <div>
-        <button
+        <Button
           disabled={!isDirty || !!Object.keys(errors).length}
           style={
             !isDirty || !!Object.keys(errors).length
-              ? { backgroundColor: 'red', cursor: 'not-allowed' }
-              : { backgroundColor: 'green', cursor: 'pointer' }
+              ? {
+                  backgroundColor: 'red',
+                  cursor: 'not-allowed',
+                  marginTop: '1rem',
+                }
+              : {
+                  backgroundColor: 'green',
+                  cursor: 'pointer',
+                  marginTop: '1rem',
+                }
           }
           type="submit"
+          variant="primary"
         >
           Log in
-        </button>
+        </Button>
         {isLoading ? <Spinner style={{ marginLeft: 5 }} /> : null}
       </div>
     </form>
