@@ -1,4 +1,4 @@
-const users = [
+let users = [
   {
     id: 1,
     username: 'user1',
@@ -45,24 +45,11 @@ const registerNewUser = newUserData => {
 };
 
 const addBookToUser = userWithNewBook => {
-  console.log('add book to user', userWithNewBook);
-  const userToUpdate = users.find(
-    user => user.username === userWithNewBook.username,
+  // console.log('add book to user', userWithNewBook);
+  users = users.map(user =>
+    user.username === userWithNewBook.username ? userWithNewBook : user,
   );
-  console.log('user to update:!', userToUpdate);
-  // const result = (userToUpdate.data = userWithNewBook.val);
-  // const final = users.push(result);
-  // userToUpdate = userWithNewBook
-  // if (userToUpdate.data === userWithNewBook.val) {
-  //   return false;
-  // } else {
-  //   const updateData = users.map(user => user.data === userWithNewBook.val);
-  //   users = updateData;
-  //   return true;
-  // }
-
-  // users.push(userWithNewBook);
-  // console.log('user with added book', userWithNewBook);
+  // console.log('user to update:', users);
 };
 
 export { getSingleUser, getUsers, registerNewUser, addBookToUser };

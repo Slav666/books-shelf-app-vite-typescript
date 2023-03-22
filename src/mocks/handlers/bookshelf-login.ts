@@ -19,8 +19,9 @@ const userLoggedInHandler = rest.post(`${URL_PATH}`, (req, res, ctx) => {
 });
 
 const addBookToUserHandler = rest.put(`${URL_PATH}`, (req, res, ctx) => {
-  const result = addBookToUser(req.params);
-  console.log('result msw handler', result);
+  // console.log('Req body', req.body);
+  const result = addBookToUser(req.body.userWithBook);
+  // console.log('result msw handler', result);
   return res(ctx.status(200), ctx.json(result));
 });
 
