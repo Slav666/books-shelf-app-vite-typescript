@@ -7,14 +7,15 @@ export default function useAddBookToUser({ user }) {
     userWithBook => {
       const body = { ...user, userWithBook };
       console.log('Body from useAddBookTo User hook', body);
-      return axios.put(`/api/login/`, body).then(res => {
+      return axios.put(`/api/add-book-to-user/`, body).then(res => {
+        console.log('Response data from useAddBookToUser hook', res.data);
         res.data;
       });
     },
     {
-      onSuccess: async book => {
-        queryClient.invalidateQueries(['books']);
-        await queryClient.invalidateQueries(['book', book?.id]);
+      onSuccess: async userWithBook => {
+        queryClient.invalidateQueries(['userWithBook']);
+        await queryClient.invalidateQueries(['userWithBook', userWithBook]);
       },
     },
   );
