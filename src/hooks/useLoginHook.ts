@@ -7,6 +7,7 @@ export default function useLoginUser() {
     userLoginValues => {
       return axios.post('/api/login/', userLoginValues).then(res => {
         const data = res.data;
+        console.log('data from useLogin user', data);
         return data;
       });
     },

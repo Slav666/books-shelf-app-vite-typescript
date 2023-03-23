@@ -5,7 +5,7 @@ import useBooks from '~/hooks/useBooks';
 import { Tooltip } from '@reach/tooltip';
 import { FaSearch } from 'react-icons/fa';
 import { Input, BookListUL, Spinner } from './reusableComponents';
-
+import { ReadingListScreen } from './reading-list';
 function DiscoverBooksScreen({ user }) {
   const { data: books } = useBooks();
   const [query, setQuery] = useState('');
@@ -65,6 +65,7 @@ function DiscoverBooksScreen({ user }) {
         .map((val, key) => {
           return <BookRow key={key} val={val} user={user} />;
         })}
+      <ReadingListScreen user={user} />
       {/* {isError ? (
         <div style={{ color: 'red' }}>
           <p>There was an error:</p>

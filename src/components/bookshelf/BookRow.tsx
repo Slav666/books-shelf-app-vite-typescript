@@ -1,5 +1,6 @@
 import React from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
+import { getSingleUser } from '~/mocks/fixtures/bookshelf-login';
 
 export interface Props {
   val: any;
@@ -7,7 +8,6 @@ export interface Props {
 
 const BookRow = ({ val, user }: Props) => {
   const { mutateAsync } = useAddBookToUser({ ...user, val });
-
   const addBookToUserHandler = async () => {
     await mutateAsync({ ...user, val });
   };
@@ -79,7 +79,6 @@ const BookRow = ({ val, user }: Props) => {
             {val.synopsis.substring(0, 500)}...
           </small>
         </div>
-        {user.username}
 
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <button
