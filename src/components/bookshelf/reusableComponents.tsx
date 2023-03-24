@@ -122,25 +122,6 @@ const errorMessageVariants = {
   inline: { display: 'inline-block' },
 };
 
-// function ErrorMessage({ error, variant = 'stacked', ...props }) {
-//   return (
-//     <div
-//       role="alert"
-//       style={[{ color: 'red' }, errorMessageVariants[variant]]}
-//       {...props}
-//     >
-//       <span>There was an error: </span>
-//       <pre
-//         style={[
-//           { whiteSpace: 'break-spaces', margin: '0', marginBottom: -5 },
-//           errorMessageVariants[variant],
-//         ]}
-//       >
-//         {error.message}
-//       </pre>
-//     </div>
-//   );
-// }
 export {
   Button,
   Input,

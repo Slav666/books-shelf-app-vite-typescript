@@ -14,8 +14,8 @@ export default function useAddBookToUser({ user }) {
     },
     {
       onSuccess: async userWithBook => {
-        queryClient.invalidateQueries(['userWithBook']);
-        await queryClient.invalidateQueries(['userWithBook', userWithBook]);
+        // queryClient.invalidateQueries(['userWithBook']);
+        // await queryClient.invalidateQueries(['userWithBook', userWithBook]);
       },
     },
   );

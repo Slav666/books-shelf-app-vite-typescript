@@ -14,14 +14,6 @@ const userLoggedInHandler = rest.post(`${URL_PATH}`, (req, res, ctx) => {
     : res(ctx.status(400), ctx.json({ error: 'Bad request' }));
 });
 
-// const getSingleUserTestHandler = rest.get(`${URL_PATH}:id`, (req, res, ctx) => {
-//   return res(ctx.status(200), ctx.json(getSingleUser(req.body)));
-// });
-
-const loginHandlers = [
-  getSingleUserHandler,
-  userLoggedInHandler,
-  // getSingleUserTestHandler,
-];
+const loginHandlers = [getSingleUserHandler, userLoggedInHandler];
 
 export { loginHandlers };

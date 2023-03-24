@@ -4,15 +4,15 @@ import { BookRow } from './BookRow';
 import useBooks from '~/hooks/useBooks';
 import { Tooltip } from '@reach/tooltip';
 import { FaSearch } from 'react-icons/fa';
-import { Input, BookListUL, Spinner } from './reusableComponents';
+import { Input, Spinner } from './reusableComponents';
 import { ReadingListScreen } from './reading-list';
+
 function DiscoverBooksScreen({ user }) {
   const { data: books } = useBooks();
   const [query, setQuery] = useState('');
 
+  console.log('user from discover user', user);
   const isLoading = status === 'loading';
-  // const isSuccess = status === 'success';
-  // const isError = status === 'error';
 
   const searchHandler = event => {
     event.preventDefault();
@@ -62,51 +62,10 @@ function DiscoverBooksScreen({ user }) {
             return val;
           }
         })
-        .map((val, key) => {
-          return <BookRow key={key} val={val} user={user} />;
+        .map(val => {
+          return <BookRow key={val.title} val={val} user={user} />;
         })}
       <ReadingListScreen user={user} />
-      {/* {isError ? (
-        <div style={{ color: 'red' }}>
-          <p>There was an error:</p>
-          <pre>{error.message}</pre>
-        </div>
-      ) : null} */}
-      {/* <div>
-        {queried ? null : (
-          <div
-            style={{ marginTop: 20, fontSize: '1.2em', textAlign: 'center' }}
-          >
-            <p>Welcome to the discover page.</p>
-            <p>Here, let me load a few books for you...</p>
-            {isLoading ? (
-              <div style={{ width: '100%', margin: 'auto' }}>
-                <Spinner />
-              </div>
-            ) : isSuccess && books.length ? (
-              <p>Here you go! Find more books with the search bar above.</p>
-            ) : isSuccess && !books.length ? (
-              <p>
-                Hmmm... I could not find any books to suggest for you. Sorry.
-              </p>
-            ) : null}
-          </div>
-        )}
-      </div> */}
-
-      {/* {isSuccess ? (
-        books.length ? (
-          <BookListUL style={{ marginTop: 20 }}>
-            {books.map(book => (
-              <li key={book.id} aria-label={book.title}>
-                <BookRow key={book.id} book={book} />
-              </li>
-            ))}
-          </BookListUL>
-        ) : (
-          <p>No books found. Try another search.</p>
-        )
-      ) : null} */}
     </div>
   );
 }

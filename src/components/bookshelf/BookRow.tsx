@@ -1,12 +1,12 @@
 import React from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
-import { getSingleUser } from '~/mocks/fixtures/bookshelf-login';
 
 export interface Props {
   val: any;
 }
 
-const BookRow = ({ val, user }: Props) => {
+const BookRow = ({ user, val }: Props) => {
+  console.log('book row user', user);
   const { mutateAsync } = useAddBookToUser({ ...user, val });
   const addBookToUserHandler = async () => {
     await mutateAsync({ ...user, val });
@@ -24,7 +24,6 @@ const BookRow = ({ val, user }: Props) => {
       }}
     >
       <div
-        // aria-labelledby={id}
         style={{
           minHeight: 270,
           flexGrow: 2,
@@ -52,7 +51,6 @@ const BookRow = ({ val, user }: Props) => {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ flex: 1 }}>
               <h2
-                // id={id}
                 style={{
                   fontSize: '1.25em',
                   margin: '0',
@@ -86,12 +84,6 @@ const BookRow = ({ val, user }: Props) => {
             onClick={addBookToUserHandler}
           >
             Add book to reading
-          </button>
-          <button style={{ backgroundColor: 'yellow', marginRight: '2px' }}>
-            Add book as read
-          </button>
-          <button style={{ backgroundColor: 'blue' }}>
-            Remove book from the list
           </button>
         </div>
       </div>
