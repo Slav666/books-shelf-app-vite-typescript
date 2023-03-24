@@ -58,4 +58,22 @@ const addBookToUser = userWithNewBook => {
   return updatedUser;
 };
 
-export { getSingleUser, getUsers, registerNewUser, addBookToUser };
+const removeBookFromUser = userWithoutBook => {
+  users = users.map(user =>
+    user.username === userWithoutBook.username ? userWithoutBook : user,
+  );
+  console.log('Update Users', users);
+  const updatedUser = users.find(
+    user => user.username === userWithoutBook.username,
+  );
+  console.log('Update Users', updatedUser);
+  return updatedUser;
+};
+
+export {
+  getSingleUser,
+  getUsers,
+  registerNewUser,
+  addBookToUser,
+  removeBookFromUser,
+};
