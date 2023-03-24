@@ -50,7 +50,7 @@ const addBookToUser = userWithNewBook => {
   users = users.map(user =>
     user.username === userWithNewBook.username ? userWithNewBook : user,
   );
-  // console.log('Update Users', users);
+  console.log('Update Users', users);
   const updatedUser = users.find(
     user => user.username === userWithNewBook.username,
   );
@@ -58,6 +58,7 @@ const addBookToUser = userWithNewBook => {
   return updatedUser;
 };
 
+//This below function is exactly the same as above
 const removeBookFromUser = userWithoutBook => {
   users = users.map(user =>
     user.username === userWithoutBook.username ? userWithoutBook : user,

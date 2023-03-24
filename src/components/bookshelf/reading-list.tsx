@@ -1,22 +1,21 @@
-import * as React from 'react';
-// import { Link } from './reusableComponents';
-// import { ListItemList } from 'components/list-item-list';
-import RemoveBookFromUser from '~/hooks/removeBookFromUser';
+import React from 'react';
+import useLoginUser from '~/hooks/useLoginHook';
 
 function ReadingListScreen({ user }) {
   const [newValue, setNewValue] = React.useState({});
-  const { mutateAsync } = RemoveBookFromUser({ user });
+  const { data } = useLoginUser();
+  console.log('reading lis login user', data);
 
   const RemoveBookFromUserHandler = async () => {
     const newValue = { ...user };
     delete user.val;
-    const userWithRemovedBook = setNewValue(newValue);
+    const userWithRemovedBook = await setNewValue(newValue);
     console.log('new object', userWithRemovedBook);
     console.log('user from handler', user);
     await mutateAsync({ userWithRemovedBook });
   };
 
-  if (user.val) {
+  if (user?.val) {
     return (
       <div
         style={{
@@ -37,7 +36,7 @@ function ReadingListScreen({ user }) {
             display: 'grid',
             gridTemplateColumns: '140px 1fr',
             gridGap: 20,
-            border: '1px solid red',
+            border: '3px solid blue',
             color: 'red',
             padding: '1.25em',
             borderRadius: '3px',
@@ -97,23 +96,5 @@ function ReadingListScreen({ user }) {
     return <p>No books to read</p>;
   }
 }
-// );
-// <ListItemList
-//   filterListItems={li => !li.finishDate}
-//   noListItems={
-//     <p>
-//       Hey there! Welcome to your bookshelf reading list. Get started by
-//       heading over to <Link to="/discover">the Discover page</Link> to add
-//       books to your list.
-//     </p>
-//   }
-//   noFilteredListItems={
-//     <p>
-//       Looks like you've finished all your books! Check them out in your{' '}
-//       <Link to="/finished">finished books</Link> or{' '}
-//       <Link to="/discover">discover more</Link>.
-//     </p>
-//   }
-// />
 
 export { ReadingListScreen };
