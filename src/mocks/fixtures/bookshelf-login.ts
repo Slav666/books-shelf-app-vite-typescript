@@ -28,7 +28,6 @@ const getSingleUser = getUser => {
     user =>
       user.username === getUser.username && user.password === getUser.password,
   );
-  // console.log('current user', currentUser);
   return currentUser;
 };
 
@@ -42,12 +41,9 @@ const registerNewUser = newUserData => {
 };
 
 const addBookToUser = userWithNewBook => {
-  // console.log('add book to user', userWithNewBook);
   users = users.map(user =>
     user.username === userWithNewBook.username ? userWithNewBook : user,
   );
-  console.log('Update Users', users);
-
   const updatedUser = users.find(
     user => user.username === userWithNewBook.username,
   );
