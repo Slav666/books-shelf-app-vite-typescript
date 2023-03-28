@@ -1,21 +1,21 @@
 import React from 'react';
 import useLoginUser from '~/hooks/useLoginHook';
 
-function ReadingListScreen({ user }) {
+function ReadingListScreen({ user, book, setUser }) {
   const [newValue, setNewValue] = React.useState({});
   const { data } = useLoginUser();
-  console.log('reading lis login user', data);
+  console.log('reading lis login user', { user, data });
 
   const RemoveBookFromUserHandler = async () => {
     const newValue = { ...user };
-    delete user.val;
+    delete user.book;
     const userWithRemovedBook = await setNewValue(newValue);
     console.log('new object', userWithRemovedBook);
     console.log('user from handler', user);
     await mutateAsync({ userWithRemovedBook });
   };
 
-  if (user?.val) {
+  if (user?.book) {
     return (
       <div
         style={{
@@ -48,8 +48,8 @@ function ReadingListScreen({ user }) {
             }}
           >
             <img
-              alt={`${user?.val?.title} book cover`}
-              src={user?.val?.coverImageUrl}
+              alt={`${user?.book?.title} book cover`}
+              src={user?.book?.coverImageUrl}
               style={{ maxHeight: '100%', width: '100%' }}
             />
           </div>
@@ -64,7 +64,7 @@ function ReadingListScreen({ user }) {
                     color: 'blue',
                   }}
                 >
-                  {user?.val?.title}
+                  {user?.book?.title}
                 </h2>
               </div>
               <div style={{ marginLeft: 10 }}>
@@ -75,7 +75,7 @@ function ReadingListScreen({ user }) {
                     fontSize: '0.85em',
                   }}
                 >
-                  {user?.val?.author}
+                  {user?.book?.author}
                 </div>
               </div>
             </div>
@@ -88,6 +88,13 @@ function ReadingListScreen({ user }) {
             >
               Remove book from the list.
             </button>
+            <button
+              style={{ backgroundColor: 'yellow', marginRight: '2px' }}
+              // onClick={FinishedBookHandler}
+            >
+              Finished Book.
+            </button>
+            {/* <FinishedBook /> */}
           </div>
         </div>
       </div>

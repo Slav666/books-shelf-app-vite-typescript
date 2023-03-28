@@ -7,11 +7,11 @@ import { FaSearch } from 'react-icons/fa';
 import { Input, Spinner } from './reusableComponents';
 import { ReadingListScreen } from './reading-list';
 
-function DiscoverBooksScreen({ user }) {
+function DiscoverBooksScreen({ user, setUser }) {
+  //slav
   const { data: books } = useBooks();
   const [query, setQuery] = useState('');
 
-  console.log('user from discover user', user);
   const isLoading = status === 'loading';
 
   const searchHandler = event => {
@@ -53,17 +53,20 @@ function DiscoverBooksScreen({ user }) {
         </Tooltip>
       </form>
       {books
-        ?.filter(val => {
-          if (query === '') {
-            return null;
-          } else if (
-            val.title.toString().toLowerCase().includes(query.toLowerCase())
-          ) {
-            return val;
-          }
+        ?.filter(book => {
+          console.log('FILTERING BOOK: ', book);
+          return book?.title;
         })
-        .map(val => {
-          return <BookRow key={val.title} val={val} user={user} />;
+        .map(book => {
+          console.log('FILTERED BOOK: ', book);
+          return (
+            <BookRow
+              key={book.title}
+              book={book}
+              user={user}
+              setUser={setUser}
+            />
+          );
         })}
       <ReadingListScreen user={user} />
     </div>
