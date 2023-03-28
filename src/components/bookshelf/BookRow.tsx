@@ -2,14 +2,17 @@ import React from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
 
 export interface Props {
-  val: any;
+  user: any;
+  setUser: any;
+  book: any;
 }
 
-const BookRow = ({ user, val }: Props) => {
-  console.log('book row user', user);
-  const { mutateAsync } = useAddBookToUser({ ...user, val });
+const BookRow = ({ user, book, setUser }: Props) => {
+  const { mutateAsync } = useAddBookToUser();
+
   const addBookToUserHandler = async () => {
-    await mutateAsync({ ...user, val });
+    const result = await mutateAsync({ ...user, book });
+    setUser(result);
   };
 
   return (
@@ -42,8 +45,8 @@ const BookRow = ({ user, val }: Props) => {
           }}
         >
           <img
-            alt={`${val.title} book cover`}
-            src={val.coverImageUrl}
+            alt={`${book.title} book cover`}
+            src={book.coverImageUrl}
             style={{ maxHeight: '100%', width: '100%' }}
           />
         </div>
@@ -57,7 +60,7 @@ const BookRow = ({ user, val }: Props) => {
                   color: 'blue',
                 }}
               >
-                {val.title}
+                {book.title}
               </h2>
             </div>
             <div style={{ marginLeft: 10 }}>
@@ -68,13 +71,13 @@ const BookRow = ({ user, val }: Props) => {
                   fontSize: '0.85em',
                 }}
               >
-                {val.author}
+                {book.author}
               </div>
-              <small>{val.publisher}</small>
+              <small>{book.publisher}</small>
             </div>
           </div>
           <small style={{ whiteSpace: 'break-spaces', display: 'block' }}>
-            {val.synopsis.substring(0, 500)}...
+            {book.synopsis.substring(0, 500)}...
           </small>
         </div>
 

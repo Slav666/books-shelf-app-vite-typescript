@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export default function RemoveBookFromUser({ user }) {
+export default function useRemoveBookFromUser({ user }) {
   const queryClient = useQueryClient();
   return useMutation(
     () => {
@@ -9,7 +9,7 @@ export default function RemoveBookFromUser({ user }) {
       console.log('Body from remove book from user hook', body);
       return axios.put(`/api/remove-book-from-user/`, body).then(res => {
         console.log('Response data from useAddBookToUser hook', res.data);
-        res.data;
+        return res.data;
       });
     },
     {
