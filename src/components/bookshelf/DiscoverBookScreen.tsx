@@ -54,11 +54,11 @@ function DiscoverBooksScreen({ user, setUser }) {
       </form>
       {books
         ?.filter(book => {
-          console.log('FILTERING BOOK: ', book);
+          // console.log('FILTERING BOOK: ', book);
           return book?.title;
         })
         .map(book => {
-          console.log('FILTERED BOOK: ', book);
+          // console.log('FILTERED BOOK: ', book);
           return (
             <BookRow
               key={book.title}
@@ -68,7 +68,7 @@ function DiscoverBooksScreen({ user, setUser }) {
             />
           );
         })}
-      <ReadingListScreen user={user} />
+      <ReadingListScreen user={user} setUser={setUser} />
     </div>
   );
 }

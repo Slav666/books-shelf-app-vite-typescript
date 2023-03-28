@@ -1,18 +1,14 @@
 import React from 'react';
-import useLoginUser from '~/hooks/useLoginHook';
+import useRemoveBookFromUser from '~/hooks/removeBookFromUser';
 
-function ReadingListScreen({ user, book, setUser }) {
-  const [newValue, setNewValue] = React.useState({});
-  const { data } = useLoginUser();
-  console.log('reading lis login user', { user, data });
+function ReadingListScreen({ user, setUser }) {
+  const { mutateAsync } = useRemoveBookFromUser();
 
   const RemoveBookFromUserHandler = async () => {
-    const newValue = { ...user };
-    delete user.book;
-    const userWithRemovedBook = await setNewValue(newValue);
-    console.log('new object', userWithRemovedBook);
-    console.log('user from handler', user);
-    await mutateAsync({ userWithRemovedBook });
+    const newValueUser = { ...user };
+    delete newValueUser.book;
+    await mutateAsync(newValueUser);
+    setUser(newValueUser);
   };
 
   if (user?.book) {
@@ -100,7 +96,7 @@ function ReadingListScreen({ user, book, setUser }) {
       </div>
     );
   } else {
-    return <p>No books to read</p>;
+    return <p>No books</p>;
   }
 }
 
