@@ -1,17 +1,11 @@
-import React from 'react';
-import useRemoveBookFromUser from '~/hooks/removeBookFromUser';
+import React, { FC } from 'react';
+import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
 
-function ReadingListScreen({ user, setUser }) {
-  const { mutateAsync } = useRemoveBookFromUser();
-
-  const RemoveBookFromUserHandler = async () => {
-    const newValueUser = { ...user };
-    delete newValueUser.book;
-    await mutateAsync(newValueUser);
-    setUser(newValueUser);
-  };
-
-  if (user?.book) {
+const FinishedBookScreen: FC = () => {
+  const { data: user } = useFinishedBookFromUser();
+  // const user = useQuery(['user', useSingleUser()]);
+  // console.log('Title', user.finishedBooks.title);
+  if (user?.finishedBooks) {
     return (
       <div
         style={{
@@ -23,7 +17,7 @@ function ReadingListScreen({ user, setUser }) {
           margin: '3rem',
         }}
       >
-        Test
+        Finished Books:
         <div
           // aria-labelledby={id}
           style={{
@@ -44,8 +38,8 @@ function ReadingListScreen({ user, setUser }) {
             }}
           >
             <img
-              alt={`${user?.book?.title} book cover`}
-              src={user?.book?.coverImageUrl}
+              alt={`${user?.finishedBooks?.title} book cover`}
+              src={user?.finishedBooks?.coverImageUrl}
               style={{ maxHeight: '100%', width: '100%' }}
             />
           </div>
@@ -60,7 +54,7 @@ function ReadingListScreen({ user, setUser }) {
                     color: 'blue',
                   }}
                 >
-                  {user?.book?.title}
+                  {user?.finishedBooks?.title}
                 </h2>
               </div>
               <div style={{ marginLeft: 10 }}>
@@ -71,33 +65,23 @@ function ReadingListScreen({ user, setUser }) {
                     fontSize: '0.85em',
                   }}
                 >
-                  {user?.book?.author}
+                  {user?.finishedBooks.author}
                 </div>
               </div>
             </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <button
-              style={{ backgroundColor: 'green', marginRight: '2px' }}
-              onClick={RemoveBookFromUserHandler}
-            >
+            <button style={{ backgroundColor: 'green', marginRight: '2px' }}>
               Remove book from the list.
             </button>
-            <button
-              style={{ backgroundColor: 'yellow', marginRight: '2px' }}
-              // onClick={FinishedBookHandler}
-            >
-              Finished Book.
-            </button>
-            {/* <FinishedBook /> */}
           </div>
         </div>
       </div>
     );
   } else {
-    return <p>No books</p>;
+    return <p>You have no finished books </p>;
   }
-}
+};
 
-export { ReadingListScreen };
+export { FinishedBookScreen };

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
+import { IBook } from '../../interface';
 
 export interface Props {
-  user: any;
+  user: object;
   setUser: any;
-  book: any;
+  book: IBook;
 }
 
-const BookRow = ({ user, book, setUser }: Props) => {
+const BookRow: FC = ({ user, book, setUser }: Props) => {
   const { mutateAsync } = useAddBookToUser();
 
   const addBookToUserHandler = async () => {
