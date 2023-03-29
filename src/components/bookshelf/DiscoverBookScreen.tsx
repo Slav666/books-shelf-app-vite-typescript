@@ -5,10 +5,18 @@ import useBooks from '~/hooks/useBooks';
 import { Tooltip } from '@reach/tooltip';
 import { FaSearch } from 'react-icons/fa';
 import { Input, Spinner } from './reusableComponents';
-import { ReadingListScreen } from './reading-list';
+import { ReadingListScreen } from './ReadingListScreen';
+import { FinishedBookScreen } from './FinishedBooksScreen';
+import { IUser } from '../../interface';
 
-function DiscoverBooksScreen({ user, setUser }) {
+interface Props {
+  user: IUser;
+  setUser(user: IUser): void;
+}
+
+const DiscoverBooksScreen = ({ user, setUser }: Props) => {
   //slav
+
   const { data: books } = useBooks();
   const [query, setQuery] = useState('');
 
@@ -18,6 +26,7 @@ function DiscoverBooksScreen({ user, setUser }) {
     event.preventDefault();
     setQuery(event.target.value);
   };
+
   return (
     <div
       style={{
@@ -69,8 +78,9 @@ function DiscoverBooksScreen({ user, setUser }) {
           );
         })}
       <ReadingListScreen user={user} setUser={setUser} />
+      <FinishedBookScreen />
     </div>
   );
-}
+};
 
 export { DiscoverBooksScreen };

@@ -55,11 +55,23 @@ const removeBookFromUser = userWithoutBook => {
   users = users.map(user =>
     user.username === userWithoutBook.username ? userWithoutBook : user,
   );
-  console.log('Update Users', users);
+  // console.log('Update Users', users);
   const updatedUser = users.find(
     user => user.username === userWithoutBook.username,
   );
-  console.log('Update Users', updatedUser);
+  // console.log('Update Users', updatedUser);
+  return updatedUser;
+};
+
+const finishedBookFromUser = userWitFinishedBook => {
+  users = users.map(user =>
+    user.username === userWitFinishedBook.username ? userWitFinishedBook : user,
+  );
+  console.log('Update Users from fixture!!!', users);
+  const updatedUser = users.find(
+    user => user.username === userWitFinishedBook.username,
+  );
+  console.log('Update Users from fixture!!!', updatedUser);
   return updatedUser;
 };
 
@@ -69,4 +81,5 @@ export {
   registerNewUser,
   addBookToUser,
   removeBookFromUser,
+  finishedBookFromUser,
 };

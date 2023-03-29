@@ -4,6 +4,7 @@ import { loginHandlers } from './bookshelf-login';
 import { registerHandlers } from './bookshelf-register';
 import { userWithBookHandlers } from './add-book-to-user';
 import { userWithoutBookHandlers } from './remove-book-from-user';
+import { userWithFinishedBookHandler } from './finished-book-from-user';
 
 const handlers = [
   ...appHandlers,
@@ -12,6 +13,7 @@ const handlers = [
   ...registerHandlers,
   ...userWithBookHandlers,
   ...userWithoutBookHandlers,
+  ...userWithFinishedBookHandler,
 ];
 
 export default handlers;
