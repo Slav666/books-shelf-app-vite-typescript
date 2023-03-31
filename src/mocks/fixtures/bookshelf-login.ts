@@ -3,21 +3,25 @@ let users = [
     id: 1,
     username: 'user1',
     password: 'password1',
+    books: [],
   },
   {
     id: 2,
     username: 'user2',
     password: 'password2',
+    books: [],
   },
   {
     id: 3,
     username: 'user3',
     password: 'password3',
+    books: [],
   },
   {
     id: 4,
     username: 'user4',
     password: 'password4',
+    books: [],
   },
 ];
 
@@ -50,28 +54,25 @@ const addBookToUser = userWithNewBook => {
   return updatedUser;
 };
 
-//This below function is exactly the same as above
-const removeBookFromUser = userWithoutBook => {
+const removeBookFromUser = (deletionBookId, userId) => {
+  const removedBook = users
+    .find(user => user.id === userId)
+    .books.filter(book => book.id !== deletionBookId);
+  // console.log('deleted book from remove book from user fixture', deletedBook);
   users = users.map(user =>
-    user.username === userWithoutBook.username ? userWithoutBook : user,
+    user.id === userId ? { ...user, books: removedBook } : user,
   );
-  // console.log('Update Users', users);
-  const updatedUser = users.find(
-    user => user.username === userWithoutBook.username,
-  );
-  // console.log('Update Users', updatedUser);
-  return updatedUser;
+  console.log('users updated 666', users);
+  return { userId, books: removedBook };
 };
 
 const finishedBookFromUser = userWitFinishedBook => {
   users = users.map(user =>
     user.username === userWitFinishedBook.username ? userWitFinishedBook : user,
   );
-  console.log('Update Users from fixture!!!', users);
   const updatedUser = users.find(
     user => user.username === userWitFinishedBook.username,
   );
-  console.log('Update Users from fixture!!!', updatedUser);
   return updatedUser;
 };
 

@@ -7,6 +7,7 @@ import { FaSearch } from 'react-icons/fa';
 import { Input, Spinner } from './reusableComponents';
 import { ReadingListScreen } from './ReadingListScreen';
 import { FinishedBookScreen } from './FinishedBooksScreen';
+// import ReadingBooksList from './ReadingBooksList';
 import { IUser } from '../../interface';
 
 interface Props {
@@ -77,6 +78,7 @@ const DiscoverBooksScreen = ({ user, setUser }: Props) => {
             />
           );
         })}
+      {/* <ReadingBooksList user={user} setUser={setUser} /> */}
       <ReadingListScreen user={user} setUser={setUser} />
       <FinishedBookScreen />
     </div>

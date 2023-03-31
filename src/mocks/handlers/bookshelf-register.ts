@@ -6,7 +6,7 @@ const URL_PATH = '/api/register/';
 
 const registerNewUserHandler = rest.post(URL_PATH, (req, res, ctx) => {
   const newUser = req.body;
-  console.log('new user from handler', newUser);
+  // console.log('new user from handler', newUser);
   registerNewUser(newUser);
   return res(ctx.status(200), ctx.json(alert('You are now registered')));
 });

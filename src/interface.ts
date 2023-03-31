@@ -13,4 +13,5 @@ export interface IUser {
   password: string;
   book: IBook;
   finishedBook: IBook;
+  books: IBook[];
 }
