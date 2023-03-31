@@ -1,15 +1,21 @@
 import { rest } from 'msw';
-import { getSingleUser, removeBookFromUser } from '../fixtures/bookshelf-login';
+import {
+  getSingleUser,
+  removeBookFromUser,
+  getUsers,
+} from '../fixtures/bookshelf-login';
 
 const URL_PATH = '/api/remove-book-from-user/';
-const removeBookFromUserHandler = rest.put(
-  `${URL_PATH}`,
+const removeBookFromUserHandler = rest.delete(
+  `${URL_PATH}:id`,
   async (req, res, ctx) => {
-    const userWithoutBook = await req.json();
-    // console.log('Req body', req.body);
-    const result = removeBookFromUser(userWithoutBook);
-    // console.log('result msw handler', result);
-    return res(ctx.status(200), ctx.json(getSingleUser(result)));
+    const result = await removeBookFromUser(req.params.id, req.body.userId);
+    // console.log('req params is', req.params.id);
+    // console.log('req params userId', req.body.userId);
+    console.log('Result', result);
+    return result
+      ? res(ctx.status(200), ctx.json(result))
+      : res(ctx.status(400), ctx.json({ error: 'Bad request' }));
   },
 );
 

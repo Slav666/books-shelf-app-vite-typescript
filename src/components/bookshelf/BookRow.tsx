@@ -1,18 +1,23 @@
 import React, { FC } from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
 import { IBook } from '../../interface';
+import { BookListUL } from './reusableComponents';
 
-export interface Props {
-  user: object;
-  setUser: any;
-  book: IBook;
-}
+// export interface Props {
+//   user: object;
+//   setUser: any;
+//   book: IBook;
+// }
 
 const BookRow: FC = ({ user, book, setUser }: Props) => {
   const { mutateAsync } = useAddBookToUser();
 
   const addBookToUserHandler = async () => {
-    const result = await mutateAsync({ ...user, book });
+    const result = await mutateAsync({
+      ...user,
+      books: [...user.books, book],
+    });
+    // console.log('book', result);
     setUser(result);
   };
 
