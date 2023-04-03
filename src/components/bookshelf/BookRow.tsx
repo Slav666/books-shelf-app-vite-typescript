@@ -1,15 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
 import { IBook } from '../../interface';
-import { BookListUL } from './reusableComponents';
+import DataContext from './DataContext';
 
-// export interface Props {
-//   user: object;
-//   setUser: any;
-//   book: IBook;
-// }
+export interface Props {
+  book: IBook;
+}
 
-const BookRow: FC = ({ user, book, setUser }: Props) => {
+const BookRow: FC = ({ book }: Props) => {
+  const { user, setUser } = useContext(DataContext);
   const { mutateAsync } = useAddBookToUser();
 
   const addBookToUserHandler = async () => {
@@ -17,7 +16,6 @@ const BookRow: FC = ({ user, book, setUser }: Props) => {
       ...user,
       books: [...user.books, book],
     });
-    // console.log('book', result);
     setUser(result);
   };
 

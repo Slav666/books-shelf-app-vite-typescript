@@ -62,8 +62,11 @@ const removeBookFromUser = (deletionBookId, userId) => {
   users = users.map(user =>
     user.id === userId ? { ...user, books: removedBook } : user,
   );
+  const findNewUser = users.find(user => user.id === userId);
+  // delete findNewUser.books;
+  console.log('updated user666', findNewUser);
   console.log('users updated 666', users);
-  return { userId, books: removedBook };
+  return findNewUser;
 };
 
 const finishedBookFromUser = userWitFinishedBook => {

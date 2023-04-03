@@ -7,17 +7,13 @@ import { FaSearch } from 'react-icons/fa';
 import { Input, Spinner } from './reusableComponents';
 import { ReadingListScreen } from './ReadingListScreen';
 import { FinishedBookScreen } from './FinishedBooksScreen';
-// import ReadingBooksList from './ReadingBooksList';
 import { IUser } from '../../interface';
-
 interface Props {
   user: IUser;
   setUser(user: IUser): void;
 }
 
-const DiscoverBooksScreen = ({ user, setUser }: Props) => {
-  //slav
-
+const DiscoverBooksScreen = () => {
   const { data: books } = useBooks();
   const [query, setQuery] = useState('');
 
@@ -69,17 +65,9 @@ const DiscoverBooksScreen = ({ user, setUser }: Props) => {
         })
         .map(book => {
           // console.log('FILTERED BOOK: ', book);
-          return (
-            <BookRow
-              key={book.title}
-              book={book}
-              user={user}
-              setUser={setUser}
-            />
-          );
+          return <BookRow key={book.title} book={book} />;
         })}
-      {/* <ReadingBooksList user={user} setUser={setUser} /> */}
-      <ReadingListScreen user={user} setUser={setUser} />
+      <ReadingListScreen />
       <FinishedBookScreen />
     </div>
   );
