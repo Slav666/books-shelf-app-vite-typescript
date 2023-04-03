@@ -1,35 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import useRemoveBookFromUser from '~/hooks/useRemoveBookFromUser';
 import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
 import { IUser, IBook } from '~/interface';
+import DataContext from './DataContext';
 
 interface Props {
-  user: IUser;
-  setUser(user: IUser): void;
-  newValueUser: IUser;
+  // user: IUser;
+  // setUser(user: IUser): void;
+  // newValueUser: IUser;
   book: IBook;
 }
 
-const SingleReadBook = ({ user, setUser, book }: Props) => {
-  // console.log('user from single read book', user);
-  const { mutateAsync: removeBook, data } = useRemoveBookFromUser();
+const SingleReadBook = ({ book }: Props) => {
+  const { user, setUser } = useContext(DataContext);
+  const { mutateAsync: removeBook } = useRemoveBookFromUser();
   const { mutateAsync: finishedBook } = useFinishedBookFromUser();
-  console.log('response data from single read book!!!', data);
 
   const RemoveBookFromUserHandler = async () => {
-    // console.log('user from remove book front handler', user);
-    // const newValueUser = { ...user };
     await removeBook({ bookToDeleteId: book.id, userId: user.id });
-
-    // setUser(user);
+    // console.log('user from remove book handler', user);
   };
 
   const addFinishedBookHandler = async () => {
     const newValueUser = { ...user, finishedBooks: user.book };
-    // console.log('finished book ', newValueUser);
     await finishedBook(newValueUser);
-    setUser(newValueUser);
   };
+
   if (book) {
     return (
       <div

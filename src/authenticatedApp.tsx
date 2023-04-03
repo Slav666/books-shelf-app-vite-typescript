@@ -1,10 +1,11 @@
 // import { jsx } from '@emotion/core';
 
-import React from 'react';
+import React, { useContext, FC } from 'react';
 import { Button } from '../src/components/bookshelf/reusableComponents';
 import { Routes, Route, Link } from 'react-router-dom';
 import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
 import { NotFoundScreen } from './screens/notFound';
+import DataContext from './components/bookshelf/DataContext';
 
 type UserProps = {
   user: {
@@ -14,7 +15,9 @@ type UserProps = {
   setUser: (user: string) => void;
 };
 
-const AuthenticatedApp = ({ user, setUser }: UserProps) => {
+const AuthenticatedApp = () => {
+  const { user, setUser } = useContext(DataContext);
+
   const handleLoggedOut = () => {
     setUser(null);
   };
@@ -55,7 +58,7 @@ const AuthenticatedApp = ({ user, setUser }: UserProps) => {
           <Nav />
         </div>
         <main style={{ width: '100%' }}>
-          <AppRoutes user={user} setUser={setUser} />
+          <AppRoutes />
         </main>
       </div>
     </React.Fragment>
@@ -110,13 +113,11 @@ const Nav = () => {
   );
 };
 
-const AppRoutes = ({ user, setUser }) => {
+const AppRoutes = () => {
+  const { user, setUser } = useContext(DataContext);
   return (
     <Routes>
-      <Route
-        element={<DiscoverBooksScreen user={user} setUser={setUser} />}
-        path="/discover"
-      />
+      <Route element={<DiscoverBooksScreen />} path="/discover" />
       {/* <Route path="/book/:bookId" element={<BookScreen user={user} />} /> */}
       <Route element={<NotFoundScreen />} path="*" />
     </Routes>

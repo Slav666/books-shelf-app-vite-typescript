@@ -12,5 +12,11 @@
       "~/*": ["./src/*"]
     }
   },
-  "include": ["vite.config.ts", "./**/*.ts", "./**/*.tsx", "./**/*.json"]
+  "include": [
+    "vite.config.ts",
+    "./**/*.ts",
+    "./**/*.tsx",
+    "./**/*.json",
+    "src/components/bookshelf/DataContext.jsx"
+  ]
 }

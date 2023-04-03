@@ -1,6 +1,6 @@
 import { jsx } from '@emotion/core';
 
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useContext } from 'react';
 import {
   Input,
   Button,
@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useRegisterUser from './hooks/useRegisterHook';
+import DataContext from './components/bookshelf/DataContext';
 
 type LoginFormData = yup.InferType<typeof loginSchema>;
 type RegisterFormData = yup.InferType<typeof registerSchema>;
@@ -134,7 +135,7 @@ export const RegisterForm = () => {
   );
 };
 
-export const LoginForm: FC<InputLoginProps> = ({ onSubmit, user }) => {
+export const LoginForm: FC<InputLoginProps> = () => {
   const {
     register,
     handleSubmit,
@@ -144,6 +145,7 @@ export const LoginForm: FC<InputLoginProps> = ({ onSubmit, user }) => {
     resolver: yupResolver(loginSchema),
   });
   const { status } = useRegisterUser();
+  const { onSubmit } = useContext(DataContext);
   const isLoading = status === 'loading';
 
   useEffect(() => {
@@ -204,7 +206,7 @@ export const LoginForm: FC<InputLoginProps> = ({ onSubmit, user }) => {
   );
 };
 
-const UnauthenticatedApp = ({ onSubmit, user }: InputLoginProps) => {
+const UnauthenticatedApp = () => {
   return (
     <div
       style={{
@@ -230,7 +232,7 @@ const UnauthenticatedApp = ({ onSubmit, user }: InputLoginProps) => {
             <Button variant="primary">Login</Button>
           </ModalOpenButton>
           <ModalContents aria-label="Login form" title="Login">
-            <LoginForm onSubmit={onSubmit} user={user} />
+            <LoginForm />
           </ModalContents>
         </Modal>
         <Modal>

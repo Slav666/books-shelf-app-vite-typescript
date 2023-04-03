@@ -1,33 +1,26 @@
 /* eslint-disable prettier/prettier */
-import React, { FC, ReactElement, createContext } from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from '~/layout/header.component';
 import Footer from '~/layout/footer.component';
 import { AuthenticatedApp } from './authenticatedApp';
 import { UnauthenticatedApp } from './unathenticatedapp';
-import useLoginUser from './hooks/useLoginHook';
+import DataContext from './components/bookshelf/DataContext';
+import { useContext } from 'react';
 
-const App: FC = (): ReactElement => {
-  const [user, setUser] = React.useState(null);
-  const { mutateAsync: login } = useLoginUser();
-  // const UserContext = createContext(null);
-  const onSubmit = async userLoginValues => {
-    const response = await login({ ...userLoginValues });
-    setUser(response);
-  };
-
+const App: FC = () => {
+  const { user } = useContext(DataContext);
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      {/* <UserContext.Provider value={user}> */}
       {user ? (
         <Router>
-          <AuthenticatedApp setUser={setUser} user={user} />
+          <AuthenticatedApp />
         </Router>
       ) : (
-        <UnauthenticatedApp onSubmit={onSubmit} user={user} />
+        <UnauthenticatedApp />
       )}
-      {/* </UserContext.Provider> */}
+
       <Footer />
     </div>
   );
