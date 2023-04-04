@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import useRemoveBookFromUser from '~/hooks/useRemoveBookFromUser';
 import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
 import { IUser, IBook } from '~/interface';
@@ -12,13 +12,13 @@ interface Props {
 }
 
 const SingleReadBook = ({ book }: Props) => {
-  const { user, setUser } = useContext(DataContext);
+  const { user } = useContext(DataContext);
+
   const { mutateAsync: removeBook } = useRemoveBookFromUser();
   const { mutateAsync: finishedBook } = useFinishedBookFromUser();
 
-  const RemoveBookFromUserHandler = async () => {
+  const removeBookFromUserHandler = async () => {
     await removeBook({ bookToDeleteId: book.id, userId: user.id });
-    // console.log('user from remove book handler', user);
   };
 
   const addFinishedBookHandler = async () => {
@@ -94,7 +94,7 @@ const SingleReadBook = ({ book }: Props) => {
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <button
               style={{ backgroundColor: 'green', marginRight: '2px' }}
-              onClick={RemoveBookFromUserHandler}
+              onClick={removeBookFromUserHandler}
             >
               Remove book from the list.
             </button>
@@ -109,7 +109,7 @@ const SingleReadBook = ({ book }: Props) => {
       </div>
     );
   } else {
-    return <p>No books</p>;
+    <p>No books</p>;
   }
 };
 export default SingleReadBook;
