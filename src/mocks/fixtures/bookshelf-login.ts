@@ -58,14 +58,10 @@ const removeBookFromUser = (deletionBookId, userId) => {
   const removedBook = users
     .find(user => user.id === userId)
     .books.filter(book => book.id !== deletionBookId);
-  // console.log('deleted book from remove book from user fixture', deletedBook);
   users = users.map(user =>
     user.id === userId ? { ...user, books: removedBook } : user,
   );
   const findNewUser = users.find(user => user.id === userId);
-  // delete findNewUser.books;
-  console.log('updated user666', findNewUser);
-  console.log('users updated 666', users);
   return findNewUser;
 };
 
