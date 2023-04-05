@@ -4,24 +4,28 @@ let users = [
     username: 'user1',
     password: 'password1',
     books: [],
+    finishedBooks: [],
   },
   {
     id: 2,
     username: 'user2',
     password: 'password2',
     books: [],
+    finishedBooks: [],
   },
   {
     id: 3,
     username: 'user3',
     password: 'password3',
     books: [],
+    finishedBooks: [],
   },
   {
     id: 4,
     username: 'user4',
     password: 'password4',
     books: [],
+    finishedBooks: [],
   },
 ];
 
@@ -69,10 +73,11 @@ const finishedBookFromUser = userWitFinishedBook => {
   users = users.map(user =>
     user.username === userWitFinishedBook.username ? userWitFinishedBook : user,
   );
-  const updatedUser = users.find(
+  const updatedUser = users.filter(
     user => user.username === userWitFinishedBook.username,
   );
-  return updatedUser;
+  const test = updatedUser.find(user => user.id === userWitFinishedBook.id);
+  return test;
 };
 
 export {

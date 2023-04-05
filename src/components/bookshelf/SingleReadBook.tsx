@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import useRemoveBookFromUser from '~/hooks/useRemoveBookFromUser';
 import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
-import { IUser, IBook } from '~/interface';
+import { IBook } from '~/interface';
 import DataContext from './DataContext';
 
 interface Props {
@@ -12,18 +12,24 @@ interface Props {
 }
 
 const SingleReadBook = ({ book }: Props) => {
-  const { user } = useContext(DataContext);
-
+  const { user, setUser } = useContext(DataContext);
   const { mutateAsync: removeBook } = useRemoveBookFromUser();
   const { mutateAsync: finishedBook } = useFinishedBookFromUser();
 
   const removeBookFromUserHandler = async () => {
-    await removeBook({ bookToDeleteId: book.id, userId: user.id });
+    const result = await removeBook({
+      bookToDeleteId: book.id,
+      userId: user.id,
+    });
+    setUser(result);
   };
 
   const addFinishedBookHandler = async () => {
-    const newValueUser = { ...user, finishedBooks: user.book };
-    await finishedBook(newValueUser);
+    const result = await finishedBook({
+      ...user,
+      finishedBooks: [...user.finishedBooks, book],
+    });
+    setUser(result);
   };
 
   if (book) {
