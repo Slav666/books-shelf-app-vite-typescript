@@ -80,6 +80,17 @@ const finishedBookFromUser = userWitFinishedBook => {
   return test;
 };
 
+const removeFinishedBookFromUser = (deletionBookId, userId) => {
+  const removedBook = users
+    .find(user => user.id === userId)
+    .finishedBooks.filter(book => book.id !== deletionBookId);
+  users = users.map(user =>
+    user.id === userId ? { ...user, finishedBooks: removedBook } : user,
+  );
+  const findNewUser = users.find(user => user.id === userId);
+  return findNewUser;
+};
+
 export {
   getSingleUser,
   getUsers,
@@ -87,4 +98,5 @@ export {
   addBookToUser,
   removeBookFromUser,
   finishedBookFromUser,
+  removeFinishedBookFromUser,
 };
