@@ -67,7 +67,7 @@ const DiscoverBooksScreen = () => {
         })
         .map(book => {
           // console.log('FILTERED BOOK: ', book);
-          return <BookRow key={book.title} book={book} />;
+          return <BookRow key={book.id} book={book} />;
         })}
       <ReadingListScreen />
       <FinishedListBooks />

@@ -12,6 +12,9 @@ const BookRow: FC = ({ book }: Props) => {
   const { mutateAsync } = useAddBookToUser();
 
   const addBookToUserHandler = async () => {
+    // const test = user.books.forEach(userBook => userBook);
+    // console.log('test', test);
+
     const result = await mutateAsync({
       ...user,
       books: [...user.books, book],
@@ -87,6 +90,11 @@ const BookRow: FC = ({ book }: Props) => {
 
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <button
+            disabled={
+              user.books.find(userBook => userBook.id === book.id)
+                ? true
+                : false
+            }
             style={{ backgroundColor: 'green', marginRight: '2px' }}
             onClick={addBookToUserHandler}
           >
