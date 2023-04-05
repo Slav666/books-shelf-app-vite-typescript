@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IBook } from '~/interface';
-
+import useRemoveFinishedBook from '../../hooks/useRemoveFinishedBook';
+import DataContext from './DataContext';
 interface Props {
   finishedBook: IBook;
 }
 
 const FinishedSingleBook = ({ finishedBook }: Props) => {
+  const { user, setUser } = useContext(DataContext);
+  const { mutateAsync: removeFinishedBook } = useRemoveFinishedBook();
+
+  const removeFinishedBookHandler = async () => {
+    const result = await removeFinishedBook({
+      bookToDeleteId: finishedBook.id,
+      userId: user.id,
+    });
+    setUser(result);
+  };
+
   if (finishedBook) {
     return (
       <div
@@ -74,7 +86,7 @@ const FinishedSingleBook = ({ finishedBook }: Props) => {
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <button
               style={{ backgroundColor: 'green', marginRight: '2px' }}
-              // onClick={removeBookFromUserHandler}
+              onClick={removeFinishedBookHandler}
             >
               Remove book from the list.
             </button>
