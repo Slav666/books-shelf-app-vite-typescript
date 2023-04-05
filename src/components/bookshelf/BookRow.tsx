@@ -1,10 +1,11 @@
 import React, { FC, useContext } from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
-import { IBook } from '../../interface';
+import { IBook, IUser } from '../../interface';
 import DataContext from './DataContext';
 
 export interface Props {
   book: IBook;
+  user: IUser;
 }
 
 const BookRow: FC = ({ book }: Props) => {
@@ -12,6 +13,9 @@ const BookRow: FC = ({ book }: Props) => {
   const { mutateAsync } = useAddBookToUser();
 
   const addBookToUserHandler = async () => {
+    // const test = user.books.forEach(userBook => userBook);
+    // console.log('test', test);
+
     const result = await mutateAsync({
       ...user,
       books: [...user.books, book],
@@ -87,6 +91,11 @@ const BookRow: FC = ({ book }: Props) => {
 
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <button
+            disabled={
+              user.books.find(userBook => userBook.id === book.id)
+                ? true
+                : false
+            }
             style={{ backgroundColor: 'green', marginRight: '2px' }}
             onClick={addBookToUserHandler}
           >

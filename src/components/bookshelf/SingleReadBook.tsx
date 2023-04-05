@@ -28,6 +28,7 @@ const SingleReadBook = ({ book }: Props) => {
     const result = await finishedBook({
       ...user,
       finishedBooks: [...user.finishedBooks, book],
+      books: user.books.filter(testBook => testBook.id !== book.id),
     });
     setUser(result);
   };
@@ -105,7 +106,12 @@ const SingleReadBook = ({ book }: Props) => {
               Remove book from the list.
             </button>
             <button
-              style={{ backgroundColor: 'yellow', marginRight: '2px' }}
+              disabled={
+                user.finishedBooks.find(userBook => userBook.id === book.id)
+                  ? true
+                  : false
+              }
+              style={{ backgroundColor: 'pink', marginRight: '2px' }}
               onClick={addFinishedBookHandler}
             >
               Finished Book.
