@@ -28,6 +28,7 @@ const SingleReadBook = ({ book }: Props) => {
     const result = await finishedBook({
       ...user,
       finishedBooks: [...user.finishedBooks, book],
+      books: user.books.filter(testBook => testBook.id !== book.id),
     });
     setUser(result);
   };

@@ -1,10 +1,11 @@
 import React, { FC, useContext } from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
-import { IBook } from '../../interface';
+import { IBook, IUser } from '../../interface';
 import DataContext from './DataContext';
 
 export interface Props {
   book: IBook;
+  user: IUser;
 }
 
 const BookRow: FC = ({ book }: Props) => {
