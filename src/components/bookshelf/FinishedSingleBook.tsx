@@ -1,11 +1,12 @@
-import React, { FC } from 'react';
-import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
+import React from 'react';
+import { IBook } from '~/interface';
 
-const FinishedBookScreen: FC = () => {
-  const { data: user } = useFinishedBookFromUser();
-  // const user = useQuery(['user', useSingleUser()]);
-  // console.log('Title', user.finishedBooks.title);
-  if (user?.finishedBooks) {
+interface Props {
+  finishedBook: IBook;
+}
+
+const FinishedSingleBook = ({ finishedBook }: Props) => {
+  if (finishedBook) {
     return (
       <div
         style={{
@@ -38,8 +39,8 @@ const FinishedBookScreen: FC = () => {
             }}
           >
             <img
-              alt={`${user?.finishedBooks?.title} book cover`}
-              src={user?.finishedBooks?.coverImageUrl}
+              alt={`${finishedBook?.title} book cover`}
+              src={finishedBook?.coverImageUrl}
               style={{ maxHeight: '100%', width: '100%' }}
             />
           </div>
@@ -54,7 +55,7 @@ const FinishedBookScreen: FC = () => {
                     color: 'blue',
                   }}
                 >
-                  {user?.finishedBooks?.title}
+                  {finishedBook?.title}
                 </h2>
               </div>
               <div style={{ marginLeft: 10 }}>
@@ -65,14 +66,16 @@ const FinishedBookScreen: FC = () => {
                     fontSize: '0.85em',
                   }}
                 >
-                  {user?.finishedBooks.author}
+                  {finishedBook?.author}
                 </div>
               </div>
             </div>
           </div>
-
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <button style={{ backgroundColor: 'green', marginRight: '2px' }}>
+            <button
+              style={{ backgroundColor: 'green', marginRight: '2px' }}
+              // onClick={removeBookFromUserHandler}
+            >
               Remove book from the list.
             </button>
           </div>
@@ -80,8 +83,7 @@ const FinishedBookScreen: FC = () => {
       </div>
     );
   } else {
-    return <p>You have no finished books </p>;
+    <p>No books</p>;
   }
 };
-
-export { FinishedBookScreen };
+export default FinishedSingleBook;

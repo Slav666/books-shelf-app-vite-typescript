@@ -6,8 +6,10 @@ import { Tooltip } from '@reach/tooltip';
 import { FaSearch } from 'react-icons/fa';
 import { Input, Spinner } from './reusableComponents';
 import { ReadingListScreen } from './ReadingListScreen';
-import { FinishedBookScreen } from './FinishedBooksScreen';
+
 import { IUser } from '../../interface';
+import FinishedListBooks from './FinishedListBooks';
+
 interface Props {
   user: IUser;
   setUser(user: IUser): void;
@@ -68,7 +70,7 @@ const DiscoverBooksScreen = () => {
           return <BookRow key={book.title} book={book} />;
         })}
       <ReadingListScreen />
-      <FinishedBookScreen />
+      <FinishedListBooks />
     </div>
   );
 };

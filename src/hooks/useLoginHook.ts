@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 export default function useLoginUser() {
   return useMutation(userLoginValues => {
