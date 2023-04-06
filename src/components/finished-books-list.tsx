@@ -1,7 +1,7 @@
 import React, { useContext, FC } from 'react';
-import { IBook } from '~/interface';
-import FinishedSingleBook from './FinishedSingleBook';
-import DataContext from './DataContext';
+import { IBook } from '~/utils/interface';
+import FinishedSingleBook from './finished-book';
+import DataContext from '../context/user-context';
 
 interface Props {
   finishedBook: IBook;

@@ -1,39 +1,24 @@
 import React, { useContext } from 'react';
-import useRemoveBookFromUser from '~/hooks/useRemoveBookFromUser';
-import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
-import { IBook } from '~/interface';
-import DataContext from './DataContext';
-
+import { IBook } from '~/utils/interface';
+import useRemoveFinishedBook from '../hooks/useRemoveFinishedBook';
+import DataContext from '../context/user-context';
 interface Props {
-  // user: IUser;
-  // setUser(user: IUser): void;
-  // newValueUser: IUser;
-  book: IBook;
+  finishedBook: IBook;
 }
 
-const SingleReadBook = ({ book }: Props) => {
+const FinishedSingleBook = ({ finishedBook }: Props) => {
   const { user, setUser } = useContext(DataContext);
-  const { mutateAsync: removeBook } = useRemoveBookFromUser();
-  const { mutateAsync: finishedBook } = useFinishedBookFromUser();
+  const { mutateAsync: removeFinishedBook } = useRemoveFinishedBook();
 
-  const removeBookFromUserHandler = async () => {
-    const result = await removeBook({
-      bookToDeleteId: book.id,
+  const removeFinishedBookHandler = async () => {
+    const result = await removeFinishedBook({
+      bookToDeleteId: finishedBook.id,
       userId: user.id,
     });
     setUser(result);
   };
 
-  const addFinishedBookHandler = async () => {
-    const result = await finishedBook({
-      ...user,
-      finishedBooks: [...user.finishedBooks, book],
-      books: user.books.filter(testBook => testBook.id !== book.id),
-    });
-    setUser(result);
-  };
-
-  if (book) {
+  if (finishedBook) {
     return (
       <div
         style={{
@@ -45,7 +30,7 @@ const SingleReadBook = ({ book }: Props) => {
           margin: '3rem',
         }}
       >
-        Reading Books:
+        Finished Books:
         <div
           // aria-labelledby={id}
           style={{
@@ -66,8 +51,8 @@ const SingleReadBook = ({ book }: Props) => {
             }}
           >
             <img
-              alt={`${book?.title} book cover`}
-              src={book?.coverImageUrl}
+              alt={`${finishedBook?.title} book cover`}
+              src={finishedBook?.coverImageUrl}
               style={{ maxHeight: '100%', width: '100%' }}
             />
           </div>
@@ -82,7 +67,7 @@ const SingleReadBook = ({ book }: Props) => {
                     color: 'blue',
                   }}
                 >
-                  {book?.title}
+                  {finishedBook?.title}
                 </h2>
               </div>
               <div style={{ marginLeft: 10 }}>
@@ -93,7 +78,7 @@ const SingleReadBook = ({ book }: Props) => {
                     fontSize: '0.85em',
                   }}
                 >
-                  {book?.author}
+                  {finishedBook?.author}
                 </div>
               </div>
             </div>
@@ -101,20 +86,9 @@ const SingleReadBook = ({ book }: Props) => {
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <button
               style={{ backgroundColor: 'green', marginRight: '2px' }}
-              onClick={removeBookFromUserHandler}
+              onClick={removeFinishedBookHandler}
             >
               Remove book from the list.
-            </button>
-            <button
-              disabled={
-                user.finishedBooks.find(userBook => userBook.id === book.id)
-                  ? true
-                  : false
-              }
-              style={{ backgroundColor: 'pink', marginRight: '2px' }}
-              onClick={addFinishedBookHandler}
-            >
-              Finished Book.
             </button>
           </div>
         </div>
@@ -124,4 +98,4 @@ const SingleReadBook = ({ book }: Props) => {
     <p>No books</p>;
   }
 };
-export default SingleReadBook;
+export default FinishedSingleBook;

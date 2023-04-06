@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react';
-import useLoginUser from '../../hooks/useLoginHook';
+import useLoginUser from '../hooks/useLoginHook';
 
 const DataContext = createContext({});
 

@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 
-import { BookRow } from './BookRow';
+import { BookRow } from './book-row';
 import useBooks from '~/hooks/useBooks';
 import { Tooltip } from '@reach/tooltip';
 import { FaSearch } from 'react-icons/fa';
-import { Input, Spinner } from './reusableComponents';
-import { ReadingListScreen } from './ReadingListScreen';
-
-import { IUser } from '../../interface';
-import FinishedListBooks from './FinishedListBooks';
+import { Input, Spinner } from './lib';
+import { IUser } from '../utils/interface';
 
 interface Props {
   user: IUser;
@@ -69,8 +66,6 @@ const DiscoverBooksScreen = () => {
           // console.log('FILTERED BOOK: ', book);
           return <BookRow key={book.id} book={book} />;
         })}
-      <ReadingListScreen />
-      <FinishedListBooks />
     </div>
   );
 };

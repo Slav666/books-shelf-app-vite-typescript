@@ -1,23 +1,14 @@
 import { jsx } from '@emotion/core';
 
 import React, { FC, useEffect, useContext } from 'react';
-import {
-  Input,
-  Button,
-  Spinner,
-  FormGroup,
-} from './components/bookshelf/reusableComponents';
-import {
-  Modal,
-  ModalContents,
-  ModalOpenButton,
-} from './components/bookshelf/modal';
-import { Logo } from './components/bookshelf/logo';
+import { Input, Button, Spinner, FormGroup } from './components/lib';
+import { Modal, ModalContents, ModalOpenButton } from './components/modal';
+import { Logo } from './assets/logo';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useRegisterUser from './hooks/useRegisterHook';
-import DataContext from './components/bookshelf/DataContext';
+import DataContext from './context/user-context';
 
 type LoginFormData = yup.InferType<typeof loginSchema>;
 type RegisterFormData = yup.InferType<typeof registerSchema>;
@@ -208,25 +199,10 @@ export const LoginForm: FC<InputLoginProps> = () => {
 
 const UnauthenticatedApp = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100vh',
-      }}
-    >
-      <Logo width="80" height="80" />
+    <div className="unauthenticated-app-layout">
+      <Logo height="80" width="80" />
       <h1>Bookshelf</h1>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-          gridGap: '0.75rem',
-        }}
-      >
+      <div className="unauthenticated-app-buttons-layout">
         <Modal>
           <ModalOpenButton>
             <Button variant="primary">Login</Button>

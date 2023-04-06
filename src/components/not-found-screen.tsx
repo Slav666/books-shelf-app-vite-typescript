@@ -1,18 +1,11 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 
-import { Link } from '../components/bookshelf/reusableComponents';
+import { Link } from './lib';
 
 function NotFoundScreen() {
   return (
-    <div
-      style={{
-        height: '100%',
-        display: 'grid',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <div className="not-found-screen-layout">
       <div>
         Sorry... nothing here. <Link to="/discover">Go home</Link>
       </div>
