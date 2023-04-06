@@ -98,3 +98,110 @@ button[disabled] {
     border-width: 1px;
   }
 }
+
+.login-button-position {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 160px;
+  right: 40px;
+}
+
+.discover-container {
+  margin: 0 auto;
+  padding: 4em 2em;
+  max-width: 1100px;
+  width: 100%;
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: 1fr 3fr;
+  background-color: yellow;
+}
+.link-layout {
+  display: block;
+  padding: 8px 15px 8px 10px;
+  margin: 5px 0;
+  width: 100%;
+  height: 100%;
+  color: blue;
+  border-radius: 2px;
+  border-left: 5px solid transparent;
+}
+.link-layout:hover {
+  color: red;
+  text-decoration: 'none';
+  background: pink;
+}
+.navigation-position {
+  position: sticky;
+  top: 4px;
+  padding: 1em 1.5em;
+  border: 1px solid green;
+  border-radius: 3px;
+}
+.unauthenticated-app-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+.unauthenticated-app-buttons-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 0.75rem;
+}
+.not-found-screen-layout {
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+.book-row-container {
+  max-width: 800;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  margin: 3rem;
+}
+.book-row {
+  min-height: 270;
+  flex-grow: 2;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  grid-gap: 20;
+  border: 1px solid red;
+  color: red;
+  padding: 1.25em;
+  border-radius: 3px;
+}
+.book-row-image {
+  max-height: 100%;
+  width: 100%;
+}
+.book-row-title {
+  font-size: 1.25em;
+  margin: 0;
+  color: blue;
+}
+.book-row-author {
+  margin-top: 0.4em;
+  font-style: italic;
+  font-size: 0.85em;
+}
+.book-row-synopsis {
+  white-space: 'break-spaces';
+  display: block;
+  margin: 10px;
+}
+/* .book-row-button-position {
+  display: flex;
+  flex-direction: row;
+} */
+.book-row-button {
+  background-color: green;
+  margin-right: 2px;
+  margin-top: 2px;
+}

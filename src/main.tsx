@@ -4,7 +4,7 @@ import App from './app.component';
 import { worker } from '~/mocks/browser';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { DataProvider } from './components/bookshelf/DataContext';
+import { DataProvider } from './context/user-context';
 import './i18n/i18n';
 
 import './index.css';
