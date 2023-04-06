@@ -6,6 +6,8 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { DiscoverBooksScreen } from './components/bookshelf/DiscoverBookScreen';
 import { NotFoundScreen } from './screens/notFound';
 import DataContext from './components/bookshelf/DataContext';
+import { ReadingListScreen } from './components/bookshelf/ReadingListScreen';
+import FinishedListBooks from './components/bookshelf/FinishedListBooks';
 
 type UserProps = {
   user: {
@@ -106,6 +108,12 @@ const Nav = () => {
         }}
       >
         <li>
+          <NavLink to="/list">Reading List</NavLink>
+        </li>
+        <li>
+          <NavLink to="/finished">Finished Books</NavLink>
+        </li>
+        <li>
           <NavLink to="/discover">Discover</NavLink>
         </li>
       </ul>
@@ -117,6 +125,8 @@ const AppRoutes = () => {
   const { user, setUser } = useContext(DataContext);
   return (
     <Routes>
+      <Route element={<ReadingListScreen />} path="/list" />
+      <Route element={<FinishedListBooks />} path="/finished" />
       <Route element={<DiscoverBooksScreen />} path="/discover" />
       {/* <Route path="/book/:bookId" element={<BookScreen user={user} />} /> */}
       <Route element={<NotFoundScreen />} path="*" />

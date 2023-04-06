@@ -13,9 +13,6 @@ const BookRow: FC = ({ book }: Props) => {
   const { mutateAsync } = useAddBookToUser();
 
   const addBookToUserHandler = async () => {
-    // const test = user.books.forEach(userBook => userBook);
-    // console.log('test', test);
-
     const result = await mutateAsync({
       ...user,
       books: [...user.books, book],

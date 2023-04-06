@@ -5,10 +5,7 @@ import useBooks from '~/hooks/useBooks';
 import { Tooltip } from '@reach/tooltip';
 import { FaSearch } from 'react-icons/fa';
 import { Input, Spinner } from './reusableComponents';
-import { ReadingListScreen } from './ReadingListScreen';
-
 import { IUser } from '../../interface';
-import FinishedListBooks from './FinishedListBooks';
 
 interface Props {
   user: IUser;
@@ -69,8 +66,6 @@ const DiscoverBooksScreen = () => {
           // console.log('FILTERED BOOK: ', book);
           return <BookRow key={book.id} book={book} />;
         })}
-      <ReadingListScreen />
-      <FinishedListBooks />
     </div>
   );
 };
