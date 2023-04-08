@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { IBook } from '~/utils/interface';
 import useRemoveFinishedBook from '../hooks/useRemoveFinishedBook';
 import DataContext from '../context/user-context';
+import { Button } from './lib';
 interface Props {
   finishedBook: IBook;
 }
@@ -20,76 +21,33 @@ const FinishedSingleBook = ({ finishedBook }: Props) => {
 
   if (finishedBook) {
     return (
-      <div
-        style={{
-          maxWidth: 800,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          position: 'relative',
-          margin: '3rem',
-        }}
-      >
-        Finished Books:
-        <div
-          // aria-labelledby={id}
-          style={{
-            minHeight: 270,
-            flexGrow: 2,
-            display: 'grid',
-            gridTemplateColumns: '140px 1fr',
-            gridGap: 20,
-            border: '3px solid blue',
-            color: 'red',
-            padding: '1.25em',
-            borderRadius: '3px',
-          }}
-        >
-          <div
-            style={{
-              width: 140,
-            }}
-          >
+      <div className="book-row-container">
+        <div className="book-row">
+          <div>
             <img
-              alt={`${finishedBook?.title} book cover`}
-              src={finishedBook?.coverImageUrl}
-              style={{ maxHeight: '100%', width: '100%' }}
+              alt={`${finishedBook.title} book cover`}
+              className="book-row-image"
+              src={finishedBook.coverImageUrl}
             />
           </div>
-          <div style={{ flex: 1 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div style={{ flex: 1 }}>
-                <h2
-                  // id={id}
-                  style={{
-                    fontSize: '1.25em',
-                    margin: '0',
-                    color: 'blue',
-                  }}
-                >
-                  {finishedBook?.title}
-                </h2>
+          <div>
+            <div>
+              <div>
+                <h2 className="book-row-title">{finishedBook.title}</h2>
               </div>
-              <div style={{ marginLeft: 10 }}>
-                <div
-                  style={{
-                    marginTop: '0.4em',
-                    fontStyle: 'italic',
-                    fontSize: '0.85em',
-                  }}
-                >
-                  {finishedBook?.author}
-                </div>
+              <div>
+                <div className="book-row-author">{finishedBook.author}</div>
               </div>
             </div>
+            <small className="book-row-synopsis">
+              {finishedBook.synopsis.substring(0, 500)}...
+            </small>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <button
-              style={{ backgroundColor: 'green', marginRight: '2px' }}
-              onClick={removeFinishedBookHandler}
-            >
-              Remove book from the list.
-            </button>
+
+          <div>
+            <Button variant="primary" onClick={removeFinishedBookHandler}>
+              Remove book
+            </Button>
           </div>
         </div>
       </div>
