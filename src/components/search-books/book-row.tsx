@@ -1,8 +1,8 @@
 import React, { FC, useContext } from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
-import { IBook, IUser } from '../utils/interface';
-import DataContext from '../context/user-context';
-import { Button } from './lib';
+import { IBook, IUser } from '../../utils/interface';
+import DataContext from '../../context/user-context';
+import { Button } from '../lib';
 
 export interface Props {
   book: IBook;

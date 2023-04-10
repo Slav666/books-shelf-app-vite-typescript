@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { IUser } from '~/utils/interface';
 import SingleReadBook from './reading-book';
-import DataContext from '../context/user-context';
+import DataContext from '../../context/user-context';
 
 interface Props {
   user: IUser;

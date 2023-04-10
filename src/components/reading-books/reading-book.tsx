@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import useRemoveBookFromUser from '~/hooks/useRemoveBookFromUser';
 import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
 import { IBook } from '~/utils/interface';
-import DataContext from '../context/user-context';
-import { Button } from './lib';
+import DataContext from '../../context/user-context';
+import { Button } from '../lib';
 
 interface Props {
   // user: IUser;
@@ -37,7 +37,6 @@ const SingleReadBook = ({ book }: Props) => {
   if (book) {
     return (
       <div className="book-row-container">
-        Reading Books:
         <div className="book-row">
           <div>
             <img
