@@ -1,14 +1,14 @@
 import { jsx } from '@emotion/core';
 
 import React, { FC, useEffect, useContext } from 'react';
-import { Input, Button, Spinner, FormGroup } from './components/lib';
-import { Modal, ModalContents, ModalOpenButton } from './components/modal';
-import { Logo } from './assets/logo';
+import { Input, Button, Spinner, FormGroup } from '../components/lib';
+import { Modal, ModalContents, ModalOpenButton } from '../components/modal';
+import { Logo } from '../assets/logo';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import useRegisterUser from './hooks/useRegisterHook';
-import DataContext from './context/user-context';
+import useRegisterUser from '../hooks/useRegisterHook';
+import DataContext from '../context/user-context';
 
 type LoginFormData = yup.InferType<typeof loginSchema>;
 type RegisterFormData = yup.InferType<typeof registerSchema>;

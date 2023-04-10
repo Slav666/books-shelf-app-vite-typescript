@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { IBook } from '~/utils/interface';
-import useRemoveFinishedBook from '../hooks/useRemoveFinishedBook';
-import DataContext from '../context/user-context';
-import { Button } from './lib';
+import useRemoveFinishedBook from '../../hooks/useRemoveFinishedBook';
+import DataContext from '../../context/user-context';
+import { Button } from '../lib';
 interface Props {
   finishedBook: IBook;
 }
