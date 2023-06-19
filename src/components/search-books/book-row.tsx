@@ -2,23 +2,26 @@ import React, { FC, useContext } from 'react';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
 import { IBook, IUser } from '../../utils/interface';
 import DataContext from '../../context/user-context';
+import { AuthenticationContextType } from '../../context/user-context';
 import { Button } from '../lib';
 
 export interface Props {
   book: IBook;
   user: IUser;
+  books: IBook[];
 }
 
-const BookRow: FC = ({ book }: Props) => {
-  const { user, setUser } = useContext(DataContext);
+const BookRow: FC<Props> = ({ book }) => {
+  const { user, setUser } = useContext<AuthenticationContextType>(DataContext);
   const { mutateAsync } = useAddBookToUser();
 
-  const addBookToUserHandler = async () => {
+  const addBookToUserHandler = async (): Promise<void> => {
     const result = await mutateAsync({
       ...user,
       books: [...user.books, book],
     });
     setUser(result);
+    console.log('result', result);
   };
 
   return (
@@ -49,11 +52,11 @@ const BookRow: FC = ({ book }: Props) => {
         <div>
           <Button
             className="book-row-button"
-            disabled={
-              user.books.find(userBook => userBook.id === book.id)
-                ? true
-                : false
-            }
+            // disabled={
+            //   user.books.find(userBook => userBook.id === book.id)
+            //     ? true
+            //     : false
+            // }
             variant="primary"
             onClick={addBookToUserHandler}
           >

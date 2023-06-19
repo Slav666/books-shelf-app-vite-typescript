@@ -1,19 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, FC } from 'react';
 import useRemoveBookFromUser from '~/hooks/useRemoveBookFromUser';
 import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
 import { IBook } from '~/utils/interface';
 import DataContext from '../../context/user-context';
+import { AuthenticationContextType } from '../../context/user-context';
 import { Button } from '../lib';
 
 interface Props {
-  // user: IUser;
-  // setUser(user: IUser): void;
-  // newValueUser: IUser;
   book: IBook;
+  bookToDeleteId: number;
 }
 
-const SingleReadBook = ({ book }: Props) => {
-  const { user, setUser } = useContext(DataContext);
+const SingleReadBook: FC<Props> = ({ book }) => {
+  const { user, setUser } = useContext<AuthenticationContextType>(DataContext);
   const { mutateAsync: removeBook } = useRemoveBookFromUser();
   const { mutateAsync: finishedBook } = useFinishedBookFromUser();
 
@@ -60,11 +59,11 @@ const SingleReadBook = ({ book }: Props) => {
               Remove book from the list.
             </Button>
             <Button
-              disabled={
-                user.finishedBooks.find(userBook => userBook.id === book.id)
-                  ? true
-                  : false
-              }
+              // disabled={
+              //   user.finishedBooks.find(userBook => userBook.id === book.id)
+              //     ? true
+              //     : false
+              // }
               variant="primary"
               onClick={addFinishedBookHandler}
             >

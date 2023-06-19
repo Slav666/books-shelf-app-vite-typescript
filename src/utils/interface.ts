@@ -1,5 +1,5 @@
 export interface IBook {
-  id: string;
+  id: number;
   title: string;
   author: string;
   coverImageUrl: string;
@@ -9,6 +9,7 @@ export interface IBook {
 }
 
 export interface IUser {
+  id: any;
   username: string;
   password: string;
   book: IBook;

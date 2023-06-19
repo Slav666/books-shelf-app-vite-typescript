@@ -3,10 +3,6 @@ import { IBook } from '~/utils/interface';
 import FinishedSingleBook from './finished-book';
 import DataContext from '../../context/user-context';
 
-interface Props {
-  finishedBook: IBook;
-}
-
 const FinishedListBooks: FC = () => {
   const { user } = useContext(DataContext);
 

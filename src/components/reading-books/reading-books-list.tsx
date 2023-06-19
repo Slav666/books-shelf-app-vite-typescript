@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, FC } from 'react';
 import { IUser } from '~/utils/interface';
 import SingleReadBook from './reading-book';
 import DataContext from '../../context/user-context';
@@ -9,7 +9,7 @@ interface Props {
   // newValueUser: IUser;
 }
 
-const ReadingListScreen = () => {
+const ReadingListScreen: FC<Props> = () => {
   const { user } = useContext(DataContext);
   return (
     <ul>
