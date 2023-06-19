@@ -10,11 +10,6 @@ import { IUser } from '../../src/utils/interface';
 
 const DataContext = createContext({});
 
-// export interface User {
-//   username: string;
-//   password?: string;
-// }
-
 export type AuthenticationContextType = {
   user: IUser | null;
   setUser: Dispatch<IUser | null>;

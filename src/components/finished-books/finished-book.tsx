@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, FC } from 'react';
 import { IBook } from '~/utils/interface';
 import useRemoveFinishedBook from '../../hooks/useRemoveFinishedBook';
 import DataContext from '../../context/user-context';
@@ -7,7 +7,7 @@ interface Props {
   finishedBook: IBook;
 }
 
-const FinishedSingleBook = ({ finishedBook }: Props) => {
+const FinishedSingleBook: FC<Props> = ({ finishedBook }) => {
   const { user, setUser } = useContext(DataContext);
   const { mutateAsync: removeFinishedBook } = useRemoveFinishedBook();
 

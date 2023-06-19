@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from '~/layout/header.component';
 import Footer from '~/layout/footer.component';
-import { AuthenticatedApp } from '../src/auth-status/authenticated-app';
-import { UnauthenticatedApp } from './auth-status/anauthenticated-app';
+import { AuthenticatedApp } from './auth-status/authenticated-app/authenticated-app';
+import { UnauthenticatedApp } from './auth-status/unauthenticated-app/unauthenticated-app';
 import DataContext from './context/user-context';
 import { useContext } from 'react';
 

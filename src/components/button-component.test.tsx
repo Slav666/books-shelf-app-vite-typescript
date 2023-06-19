@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-import { Button } from '../components/lib';
+import { Button } from './lib';
 import { render, screen } from '~/test/utils';
 import { GBIcon } from '../i18n/icons/gb-icon.component';
 

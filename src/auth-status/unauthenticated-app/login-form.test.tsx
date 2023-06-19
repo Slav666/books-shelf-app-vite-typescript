@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { LoginForm } from '../../src/auth-status/anauthenticated-app';
+import { LoginForm } from './login-form';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
