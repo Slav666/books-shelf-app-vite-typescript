@@ -9,7 +9,8 @@ export interface IBook {
 }
 
 export interface IUser {
-  id: any;
+  finishedBooks: object[];
+  id: number;
   username: string;
   password: string;
   book: IBook;

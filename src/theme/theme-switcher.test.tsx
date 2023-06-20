@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { describe, expect, it } from 'vitest';
 import { render, screen, userEvent } from '~/test/utils';
+
 import { ThemeSwitcher } from './theme-switcher.component';
 
 describe('Theme Switcher', () => {

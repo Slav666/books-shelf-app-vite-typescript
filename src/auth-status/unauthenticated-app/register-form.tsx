@@ -1,12 +1,11 @@
 import { jsx } from '@emotion/core';
-
 import React, { useEffect } from 'react';
-import { Input, Button, Spinner, FormGroup } from '../../components/lib';
+
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useRegisterUser from '../../hooks/useRegisterHook';
-// import DataContext from '../../context/user-context';
+import { Input, Button, Spinner, FormGroup } from '../../components/lib';
 
 type RegisterFormData = yup.InferType<typeof registerSchema>;
 

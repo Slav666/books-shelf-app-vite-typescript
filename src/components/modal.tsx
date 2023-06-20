@@ -4,19 +4,15 @@ import React, {
   useState,
   useContext,
   cloneElement,
+  ReactElement,
 } from 'react';
 import { CircleButton } from './lib';
 import { Dialog } from './lib';
 
 interface Props {
   title: string;
-  children: any;
+  children: ReactElement;
 }
-
-// interface Array {
-//   isOpen: boolean;
-//   setIsOpen(value: boolean): void;
-// }
 
 export const callAll =
   (...fns) =>

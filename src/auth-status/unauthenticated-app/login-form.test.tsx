@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { LoginForm } from './login-form';
+import { describe, expect, it, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import { vi } from 'vitest';
+
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { LoginForm } from './login-form';
 
 const USER_TEXT = 'testUser';
 const PASSWORD_TEXT = 'testPassword';

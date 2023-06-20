@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
-import React, { FC } from 'react';
+import React, { useContext, FC } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Header from '~/layout/header.component';
-import Footer from '~/layout/footer.component';
+
+import DataContext from './context/user-context';
 import { AuthenticatedApp } from './auth-status/authenticated-app/authenticated-app';
 import { UnauthenticatedApp } from './auth-status/unauthenticated-app/unauthenticated-app';
-import DataContext from './context/user-context';
-import { useContext } from 'react';
+import Header from '~/layout/header.component';
+import Footer from '~/layout/footer.component';
 
 const App: FC = () => {
   const { user } = useContext(DataContext);
@@ -20,7 +20,6 @@ const App: FC = () => {
       ) : (
         <UnauthenticatedApp />
       )}
-
       <Footer />
     </div>
   );

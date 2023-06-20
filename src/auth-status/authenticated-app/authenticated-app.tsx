@@ -1,14 +1,15 @@
 // import { jsx } from '@emotion/core';
 
-import React, { useContext, FC } from 'react';
-import { Button } from '../../components/lib';
+import React, { useContext, FC, ReactElement } from 'react';
+
 import DataContext from '../../context/user-context';
 import { Nav } from '../authenticated-app/navigation-link';
 import { AppRoutes } from './app-routes';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../../components/lib';
 import '../../app.css';
 
-const AuthenticatedApp: FC = () => {
+const AuthenticatedApp: FC = (): ReactElement => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(DataContext);
 

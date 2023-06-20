@@ -4,7 +4,9 @@ import React, {
   ReactElement,
   FC,
   Dispatch,
+  ReactNode,
 } from 'react';
+
 import useLoginUser from '../hooks/useLoginHook';
 import { IUser } from '../../src/utils/interface';
 
@@ -16,7 +18,7 @@ export type AuthenticationContextType = {
 };
 
 interface Props {
-  children: ReactElement;
+  children: ReactNode;
 }
 
 export const AuthenticationContext =
@@ -24,11 +26,12 @@ export const AuthenticationContext =
 AuthenticationContext.displayName = 'AuthenticationContext';
 
 export const DataProvider: FC<Props> = ({ children }) => {
-  const [user, setUser] = useState<IUser>({} as IUser);
+  const [user, setUser] = useState<IUser>();
   console.log('user', user);
   const { mutateAsync: login } = useLoginUser();
 
   const onSubmit = async userLoginValues => {
+    // console.log('user login values:', userLoginValues);
     const response = await login({ ...userLoginValues });
     setUser(response);
   };

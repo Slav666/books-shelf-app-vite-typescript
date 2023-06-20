@@ -1,9 +1,9 @@
-import React, { useContext, FC } from 'react';
-import { IBook } from '~/utils/interface';
-import FinishedSingleBook from './finished-book';
-import DataContext from '../../context/user-context';
+import React, { useContext, FC, ReactElement } from 'react';
 
-const FinishedListBooks: FC = () => {
+import DataContext from '../../context/user-context';
+import FinishedSingleBook from './finished-book';
+
+const FinishedListBooks: FC = (): ReactElement => {
   const { user } = useContext(DataContext);
 
   return (

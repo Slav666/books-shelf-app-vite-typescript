@@ -1,20 +1,14 @@
-import React, { useContext, FC } from 'react';
-import { IUser } from '~/utils/interface';
-import SingleReadBook from './reading-book';
+import React, { useContext, FC, ReactElement } from 'react';
+
 import DataContext from '../../context/user-context';
+import SingleReadBook from './reading-book';
 
-interface Props {
-  user: IUser;
-  // setUser(user: IUser): void;
-  // newValueUser: IUser;
-}
-
-const ReadingListScreen: FC<Props> = () => {
+const ReadingListScreen: FC = (): ReactElement => {
   const { user } = useContext(DataContext);
   return (
     <ul>
       {user.books.map(book => (
-        <SingleReadBook key={book.id} book={book} />
+        <SingleReadBook key={book.id} book={book} bookToDeleteId={0} />
       ))}
     </ul>
   );

@@ -3,6 +3,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+
 import { Nav } from './navigation-link';
 
 describe('Nav', () => {
@@ -35,15 +36,12 @@ describe('Nav', () => {
 
     expect(window.location.pathname).toBe('/');
 
-    // Simulate clicking on the "Reading List" link
     readingListLink.click();
     expect(window.location.pathname).toBe('/reading-books-list');
 
-    // Simulate clicking on the "Finished Books" link
     finishedBooksLink.click();
     expect(window.location.pathname).toBe('/finished-books-list');
 
-    // Simulate clicking on the "Discover" link
     discoverLink.click();
     expect(window.location.pathname).toBe('/discover');
   });

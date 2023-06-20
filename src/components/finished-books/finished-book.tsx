@@ -1,13 +1,14 @@
-import React, { useContext, FC } from 'react';
-import { IBook } from '~/utils/interface';
-import useRemoveFinishedBook from '../../hooks/useRemoveFinishedBook';
+import React, { useContext, FC, ReactElement } from 'react';
+
 import DataContext from '../../context/user-context';
+import useRemoveFinishedBook from '../../hooks/useRemoveFinishedBook';
+import { IBook, IUser } from '~/utils/interface';
 import { Button } from '../lib';
 interface Props {
   finishedBook: IBook;
 }
 
-const FinishedSingleBook: FC<Props> = ({ finishedBook }) => {
+const FinishedSingleBook: FC<Props> = ({ finishedBook }): ReactElement => {
   const { user, setUser } = useContext(DataContext);
   const { mutateAsync: removeFinishedBook } = useRemoveFinishedBook();
 

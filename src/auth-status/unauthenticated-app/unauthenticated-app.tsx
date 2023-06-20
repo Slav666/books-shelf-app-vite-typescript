@@ -1,13 +1,14 @@
 import { jsx } from '@emotion/core';
 
-import React, { FC, useEffect, useContext } from 'react';
+import React, { FC } from 'react';
+
 import { Button } from '../../components/lib';
 import { Modal, ModalContents, ModalOpenButton } from '../../components/modal';
 import { Logo } from '../../assets/logo';
 import { LoginForm } from './login-form';
 import { RegisterForm } from './register-form';
 
-const UnauthenticatedApp = () => {
+const UnauthenticatedApp: FC = () => {
   return (
     <div className="unauthenticated-app-layout">
       <Logo height="80" width="80" />
