@@ -2,7 +2,7 @@
 
 import React, { useContext, FC, ReactElement } from 'react';
 
-import DataContext from '../../context/user-context';
+import UserContext from '../../context/user-context';
 import { Nav } from '../authenticated-app/navigation-link';
 import { AppRoutes } from './app-routes';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import '../../app.css';
 
 const AuthenticatedApp: FC = (): ReactElement => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(DataContext);
+  const { user, setUser } = useContext(UserContext);
 
   const handleLoggedOut = () => {
     setUser(null);

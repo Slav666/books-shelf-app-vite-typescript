@@ -1,6 +1,6 @@
 import React, { useContext, FC, ReactElement } from 'react';
 
-import DataContext from '../../context/user-context';
+import UserContext from '../../context/user-context';
 import useRemoveBookFromUser from '~/hooks/useRemoveBookFromUser';
 import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
 import { IBook } from '~/utils/interface';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const SingleReadBook: FC<Props> = ({ book }): ReactElement => {
-  const { user, setUser } = useContext<AuthenticationContextType>(DataContext);
+  const { user, setUser } = useContext<AuthenticationContextType>(UserContext);
   const { mutateAsync: removeBook } = useRemoveBookFromUser();
   const { mutateAsync: finishedBook } = useFinishedBookFromUser();
 

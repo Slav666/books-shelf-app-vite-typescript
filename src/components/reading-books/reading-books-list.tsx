@@ -1,10 +1,10 @@
 import React, { useContext, FC, ReactElement } from 'react';
 
-import DataContext from '../../context/user-context';
+import UserContext from '../../context/user-context';
 import SingleReadBook from './reading-book';
 
 const ReadingListScreen: FC = (): ReactElement => {
-  const { user } = useContext(DataContext);
+  const { user } = useContext(UserContext);
   return (
     <ul>
       {user.books.map(book => (

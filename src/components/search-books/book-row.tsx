@@ -1,6 +1,6 @@
 import React, { FC, useContext } from 'react';
 
-import DataContext from '../../context/user-context';
+import UserContext from '../../context/user-context';
 import { AuthenticationContextType } from '../../context/user-context';
 import useAddBookToUser from '~/hooks/useAddBookToUser';
 import { IBook, IUser } from '../../utils/interface';
@@ -13,8 +13,8 @@ export interface Props {
 }
 
 const BookRow: FC<Props> = ({ book }) => {
-  const { user, setUser } = useContext<AuthenticationContextType>(DataContext);
-  const { mutateAsync } = useAddBookToUser();
+  const { user, setUser } = useContext<AuthenticationContextType>(UserContext);
+  const { mutateAsync, status, error } = useAddBookToUser();
 
   const addBookToUserHandler = async (): Promise<void> => {
     const result = await mutateAsync({

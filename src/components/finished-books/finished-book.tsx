@@ -1,6 +1,6 @@
 import React, { useContext, FC, ReactElement } from 'react';
 
-import DataContext from '../../context/user-context';
+import UserContext from '../../context/user-context';
 import useRemoveFinishedBook from '../../hooks/useRemoveFinishedBook';
 import { IBook, IUser } from '~/utils/interface';
 import { Button } from '../lib';
@@ -9,8 +9,12 @@ interface Props {
 }
 
 const FinishedSingleBook: FC<Props> = ({ finishedBook }): ReactElement => {
-  const { user, setUser } = useContext(DataContext);
-  const { mutateAsync: removeFinishedBook } = useRemoveFinishedBook();
+  const { user, setUser } = useContext(UserContext);
+  const {
+    mutateAsync: removeFinishedBook,
+    status,
+    error,
+  } = useRemoveFinishedBook();
 
   const removeFinishedBookHandler = async () => {
     const result = await removeFinishedBook({

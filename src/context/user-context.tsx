@@ -10,7 +10,7 @@ import React, {
 import useLoginUser from '../hooks/useLoginHook';
 import { IUser } from '../../src/utils/interface';
 
-const DataContext = createContext({});
+const UserContext = createContext({});
 
 export type AuthenticationContextType = {
   user: IUser | null;
@@ -37,10 +37,10 @@ export const DataProvider: FC<Props> = ({ children }) => {
   };
 
   return (
-    <DataContext.Provider value={{ user, setUser, onSubmit }}>
+    <UserContext.Provider value={{ user, setUser, onSubmit }}>
       {children}
-    </DataContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export default DataContext;
+export default UserContext;

@@ -11,10 +11,7 @@ export const AppRoutes: FC = () => {
   const { user, setUser } = useContext(DataContext);
   return (
     <Routes>
-      <Route
-        element={<ReadingListScreen user={undefined} />}
-        path="/reading-books-list"
-      />
+      <Route element={<ReadingListScreen />} path="/reading-books-list" />
       <Route element={<FinishedListBooks />} path="/finished-books-list" />
       <Route element={<DiscoverBooksScreen />} path="/discover" />
       <Route element={<NotFoundScreen />} path="*" />

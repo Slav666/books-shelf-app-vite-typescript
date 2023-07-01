@@ -35,6 +35,7 @@ export const LoginForm: FC<InputLoginProps> = () => {
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
   });
+
   const { status } = useRegisterUser();
   const { onSubmit } = useContext(DataContext);
   const isLoading = status === 'loading';

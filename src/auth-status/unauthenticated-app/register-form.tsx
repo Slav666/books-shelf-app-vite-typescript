@@ -26,7 +26,9 @@ export const RegisterForm = () => {
 
   const onSubmit = async userRegisterValues => {
     delete userRegisterValues.confirmPassword;
-    await mutateAsync({ ...userRegisterValues });
+    await mutateAsync({
+      ...userRegisterValues,
+    });
     resetField('username');
     resetField('password');
     resetField('confirmPassword');

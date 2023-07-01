@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 import { Nav } from './navigation-link';
 
 describe('Nav', () => {
-  it('renders navigation links correctly', () => {
+  it('should renders navigation links correctly', () => {
     render(
       <MemoryRouter>
         <Nav />
@@ -23,7 +23,7 @@ describe('Nav', () => {
     expect(discoverLink).toBeInTheDocument();
   });
 
-  it('navigates to the correct route when a link is clicked', () => {
+  it('should navigates to the correct route when a link is clicked', () => {
     render(
       <MemoryRouter>
         <Nav />
