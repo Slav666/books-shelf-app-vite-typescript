@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
+
+interface RemoveFinishedBookParams {
+  bookToDeleteId: number;
+  userId: string;
+}
+
 export default function useRemoveBookFromUser() {
-  return useMutation(({ bookToDeleteId, userId }) => {
+  return useMutation(({ bookToDeleteId, userId }: RemoveFinishedBookParams) => {
     return axios
       .delete(`/api/remove-book-from-user/${bookToDeleteId}`, {
         headers: {},

@@ -1,19 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, FC, ReactElement } from 'react';
+
+import UserContext from '../../context/user-context';
 import useRemoveBookFromUser from '~/hooks/useRemoveBookFromUser';
 import useFinishedBookFromUser from '~/hooks/useFinishedBookFromUser';
 import { IBook } from '~/utils/interface';
-import DataContext from '../../context/user-context';
+import { AuthenticationContextType } from '../../context/user-context';
 import { Button } from '../lib';
 
 interface Props {
-  // user: IUser;
-  // setUser(user: IUser): void;
-  // newValueUser: IUser;
   book: IBook;
+  bookToDeleteId: number;
 }
 
-const SingleReadBook = ({ book }: Props) => {
-  const { user, setUser } = useContext(DataContext);
+const SingleReadBook: FC<Props> = ({ book }): ReactElement => {
+  const { user, setUser } = useContext<AuthenticationContextType>(UserContext);
   const { mutateAsync: removeBook } = useRemoveBookFromUser();
   const { mutateAsync: finishedBook } = useFinishedBookFromUser();
 
@@ -34,48 +34,31 @@ const SingleReadBook = ({ book }: Props) => {
     setUser(result);
   };
 
-  if (book) {
-    return (
-      <div className="book-row-container">
-        <div className="book-row">
-          <div>
-            <img
-              alt={`${book?.title} book cover`}
-              className="book-row-image"
-              src={book?.coverImageUrl}
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div style={{ flex: 1 }}>
-                <h2 className="book-row-title">{book?.title}</h2>
-              </div>
-              <div style={{ marginLeft: 10 }}>
-                <div className="book-row-author">{book?.author}</div>
-              </div>
-            </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <Button variant="primary" onClick={removeBookFromUserHandler}>
-              Remove book from the list.
-            </Button>
-            <Button
-              disabled={
-                user.finishedBooks.find(userBook => userBook.id === book.id)
-                  ? true
-                  : false
-              }
-              variant="primary"
-              onClick={addFinishedBookHandler}
-            >
-              Finished Book.
-            </Button>
-          </div>
+  return book ? (
+    <div className="relative m-12 flex max-w-screen-lg items-center justify-end">
+      <section className="grid min-h-[270px] grow grid-cols-[140px,1fr] gap-10 rounded-md border border-black p-5 text-white">
+        <img
+          alt={`${book.title} book cover`}
+          className="max-h-full w-full"
+          src={book.coverImageUrl}
+        />
+        <div>
+          <h2 className="text-xl font-bold text-blue-500">{book.title}</h2>
+          <p className="mt-2 text-sm italic">{book.author}</p>
+          <small>{book.synopsis.substring(0, 500)}...</small>
         </div>
-      </div>
-    );
-  } else {
-    <p>No books</p>;
-  }
+        <div className="flex gap-4">
+          <Button variant="primary" onClick={removeBookFromUserHandler}>
+            Remove book
+          </Button>
+          <Button variant="primary" onClick={addFinishedBookHandler}>
+            Finished Book.
+          </Button>
+        </div>
+      </section>
+    </div>
+  ) : (
+    <p style={{ color: 'red' }}>No books</p>
+  );
 };
 export default SingleReadBook;

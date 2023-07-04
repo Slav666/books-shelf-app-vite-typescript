@@ -1,8 +1,5 @@
 import { rest } from 'msw';
-import {
-  finishedBookFromUser,
-  getSingleUser,
-} from '../fixtures/bookshelf-login';
+import { finishedBookFromUser } from '../fixtures/bookshelf-login';
 
 const URL_PATH = '/api/finished-book-by-user/';
 const finishedBookHandler = rest.put(`${URL_PATH}`, async (req, res, ctx) => {

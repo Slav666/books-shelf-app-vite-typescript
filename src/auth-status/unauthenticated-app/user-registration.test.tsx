@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { RegisterForm } from '../unathenticated-app';
+import { describe, expect, it, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
+
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { vi } from 'vitest';
+import { RegisterForm } from './register-form';
 
 const queryClient = new QueryClient();
 const wrapper = ({ children }) => (
@@ -14,9 +14,7 @@ const wrapper = ({ children }) => (
 describe('<UserRegistration />', () => {
   it('shows the user registration form', () => {
     render(<RegisterForm />, { wrapper });
-
     expect(screen.getByPlaceholderText('username')).toBeInTheDocument();
-
     expect(screen.getByPlaceholderText('password')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('confirmPassword')).toBeInTheDocument();
   });

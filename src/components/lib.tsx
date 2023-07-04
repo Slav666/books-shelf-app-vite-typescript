@@ -1,35 +1,64 @@
-import React from 'react';
+import React, { ReactElement, ReactEventHandler } from 'react';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'react-router-dom';
 import { Dialog as ReachDialog } from '@reach/dialog';
 import { FaSpinner } from 'react-icons/fa';
 import { keyframes } from '@emotion/react';
+import classNames from 'tailwindcss-classnames';
 import { jsx } from '@emotion/react';
 
-export interface Variant {
+export interface ButtonProps {
+  children?: any;
+  disabled?: any;
   variant: string;
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
 }
 
-const ButtonsVariant = {
-  primary: {
-    backgroundColor: '#87CEEB',
-    color: '#5A5A5A',
-  },
-  secondary: {
-    backgroundColor: '#F5E216',
-    color: 'black',
-  },
-};
+export interface InputProps {
+  id?: string;
+  label?: string;
+  placeholder?: string;
+  value?: string;
+  type?: 'password' | 'text';
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+}
 
-const Button = styled.button<Variant>(
-  {
-    padding: '10px 15px',
-    border: '0',
-    lineHeight: '1',
-    borderRadius: '3px',
-  },
-  ({ variant = 'primary' }) => ButtonsVariant[variant],
-);
+const Button = ({
+  children,
+  onClick,
+  disabled,
+  variant,
+  type,
+}: ButtonProps) => {
+  const getColorClasses = () => {
+    switch (variant) {
+      case 'primary':
+        return 'bg-blue-500 hover:bg-blue-600';
+      case 'secondary':
+        return 'bg-gray-500 hover:bg-gray-600';
+      case 'success':
+        return 'bg-green-500 hover:bg-green-600';
+      case 'danger':
+        return 'bg-red-500 hover:bg-red-600';
+      default:
+        return 'bg-blue-500 hover:bg-blue-600';
+    }
+  };
+  return (
+    <button
+      className={`rounded px-4 py-2 text-white ${getColorClasses()} ${
+        disabled ? 'cursor-not-allowed opacity-50' : ''
+      }`}
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
 
 const Input = styled.input({
   borderRadius: '3px',
@@ -39,76 +68,9 @@ const Input = styled.input({
   color: 'red',
 });
 
-const CircleButton = styled.button({
-  borderRadius: '30px',
-  padding: '0',
-  width: '40px',
-  height: '40px',
-  lineHeight: '1',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  background: '#FFCCCB',
-  color: '#434449',
-  border: `1px solid #f1f1f4`,
-  cursor: 'pointer',
-});
-
-const Dialog = styled(ReachDialog)({
-  maxWidth: '450px',
-  borderRadius: '3px',
-  paddingBottom: '3.5em',
-  boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.2)',
-  margin: '20vh auto',
-  '@media (max-width: 991px)': {
-    width: '100%',
-    margin: '10vh auto',
-  },
-});
-
-const FormGroup = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-});
-
-const spin = keyframes({
-  '0%': { transform: 'rotate(0deg)' },
-  '100%': { transform: 'rotate(360deg)' },
-});
-
-const Spinner = styled(FaSpinner)({
-  animation: `${spin} 1s linear infinite`,
-});
-Spinner.defaultProps = {
-  'aria-label': 'loading',
-};
-
-function FullPageSpinner() {
-  return (
-    <div
-      data-testid="spiner"
-      style={{
-        fontSize: '4em',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Spinner />
-    </div>
-  );
-}
-
-const BookListUL = styled.ul({
-  listStyle: 'none',
-  padding: '0',
-  display: 'grid',
-  gridTemplateRows: 'repeat(auto-fill, minmax(100px, 1fr))',
-  gridGap: '1em',
-});
-
+const FormGroup = ({ children }: any) => (
+  <div className="flex flex-col">{children}</div>
+);
 const Link = styled(RouterLink)({
   color: 'pink',
   ':hover': {
@@ -116,20 +78,19 @@ const Link = styled(RouterLink)({
     textDecoration: 'underline',
   },
 });
+function FullPageSpinner() {
+  return (
+    <div
+      className="flex h-screen flex-col items-center justify-center text-4xl"
+      data-testid="spiner"
+    >
+      <FaSpinner
+        aria-label="loading"
+        className="animate-spin"
+        style={{ animationDuration: '1s', animationIterationCount: 'infinite' }}
+      />
+    </div>
+  );
+}
 
-const errorMessageVariants = {
-  stacked: { display: 'block' },
-  inline: { display: 'inline-block' },
-};
-
-export {
-  Button,
-  Input,
-  CircleButton,
-  Dialog,
-  FormGroup,
-  FullPageSpinner,
-  BookListUL,
-  Spinner,
-  Link,
-};
+export { Button, Input, FormGroup, FullPageSpinner, Link };

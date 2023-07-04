@@ -1,25 +1,17 @@
-import React, { useContext, FC } from 'react';
-import { IBook } from '~/utils/interface';
+import React, { useContext, FC, ReactElement } from 'react';
+
+import UserContext from '../../context/user-context';
 import FinishedSingleBook from './finished-book';
-import DataContext from '../../context/user-context';
+import { IBook } from '~/utils/interface';
 
-interface Props {
-  finishedBook: IBook;
-}
-
-const FinishedListBooks: FC = () => {
-  const { user } = useContext(DataContext);
+const FinishedListBooks: FC = (): ReactElement => {
+  const { user } = useContext(UserContext);
 
   return (
     <ul>
-      {user.finishedBooks.map(finishedBook => {
-        return (
-          <FinishedSingleBook
-            key={finishedBook.id}
-            finishedBook={finishedBook}
-          />
-        );
-      })}
+      {user.finishedBooks.map((finishedBook: IBook) => (
+        <FinishedSingleBook key={finishedBook.id} finishedBook={finishedBook} />
+      ))}
     </ul>
   );
 };
