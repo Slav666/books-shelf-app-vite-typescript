@@ -6,14 +6,20 @@ import { BookRow } from './book-row';
 const DiscoverBooksScreen: FC = () => {
   const { data: books } = useBooks();
   return (
-    <div className="search-container">
+    <div>
       {books
         ?.filter(book => {
           return book?.title;
         })
         .map(book => {
           return (
-            <BookRow key={book.id} book={book} books={[]} user={undefined} />
+            <BookRow
+              key={book.id}
+              book={book}
+              books={[]}
+              isBookAdded={[]}
+              user={undefined}
+            />
           );
         })}
     </div>

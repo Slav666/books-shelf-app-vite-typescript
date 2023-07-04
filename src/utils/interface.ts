@@ -10,7 +10,7 @@ export interface IBook {
 
 export interface IUser {
   finishedBooks: object[];
-  id: number;
+  id: string;
   username: string;
   password: string;
   book: IBook;

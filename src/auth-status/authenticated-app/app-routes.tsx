@@ -8,7 +8,7 @@ import { ReadingListScreen } from '../../components/reading-books/reading-books-
 import FinishedListBooks from '../../components/finished-books/finished-books-list';
 
 export const AppRoutes: FC = () => {
-  const { user, setUser } = useContext(DataContext);
+  // const { user, setUser } = useContext(DataContext);
   return (
     <Routes>
       <Route element={<ReadingListScreen />} path="/reading-books-list" />

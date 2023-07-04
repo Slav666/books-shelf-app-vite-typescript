@@ -20,14 +20,14 @@ const AuthenticatedApp: FC = (): ReactElement => {
 
   return (
     <React.Fragment>
-      <div className="login-button-position">
-        <p>Hello User: {user.username} </p>
+      <div className="absolute top-40 right-10 flex items-center">
+        {/* <p>Hello User: {user.username} </p> */}
         <Button variant="secondary" onClick={handleLoggedOut}>
           Logout
         </Button>
       </div>
-      <div className="discover-container">
-        <div style={{ position: 'relative' }}>
+      <div className="mx-auto mt-16 flex w-full max-w-7xl p-8">
+        <div>
           <Nav />
         </div>
         <main style={{ width: '100%' }}>

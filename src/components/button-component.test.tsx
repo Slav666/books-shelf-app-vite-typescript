@@ -8,7 +8,7 @@ import { GBIcon } from '../i18n/icons/gb-icon.component';
 
 describe('Submit Button', () => {
   it('should render a submit button with text only', () => {
-    render(<Button variant="secondary">Test text</Button>);
+    render(<Button variant="primary">Test text</Button>);
     expect(
       screen.getByRole('button', { name: 'Test text' }),
     ).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('Submit Button', () => {
 
   it('should render a submit button with text and an icon', () => {
     render(
-      <Button variant="primary">
+      <Button variant="secondary">
         <span>
           <GBIcon />
           <p>Test text</p>
@@ -42,7 +42,7 @@ describe('Submit Button', () => {
 
   it('should render a submit button in the disabled state', () => {
     render(
-      <Button disabled variant="primary">
+      <Button variant="secondary" disabled>
         Test text
       </Button>,
     );

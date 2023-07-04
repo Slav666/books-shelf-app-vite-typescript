@@ -32,7 +32,12 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--color-text-secondary);
+  background-color: var(--color-text-primary);
+  color: var(--color-bg-secondary);
+}
+
+.btn-secondary {
+  background-color: var(--color-text-accent);
   color: var(--color-bg-secondary);
 }
 
@@ -51,23 +56,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-.book-row-container {
-  max-width: 800;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  position: relative;
-  margin: 3rem;
-}
-.book-row {
-  min-height: 270;
-  flex-grow: 2;
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  grid-gap: 20;
-  border: 1px solid red;
-  color: red;
-  padding: 1.25em;
-  border-radius: 3px;
 }

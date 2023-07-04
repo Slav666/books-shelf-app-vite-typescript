@@ -10,12 +10,18 @@ import React, {
 import useLoginUser from '../hooks/useLoginHook';
 import { IUser } from '../../src/utils/interface';
 
-const UserContext = createContext({});
+// const UserContext = createContext({});
 
 export type AuthenticationContextType = {
   user: IUser | null;
   setUser: Dispatch<IUser | null>;
+  onSubmit?: (userLoginValues: any) => Promise<void>;
 };
+
+const UserContext = createContext<AuthenticationContextType>({
+  user: null,
+  setUser: () => null,
+});
 
 interface Props {
   children: ReactNode;

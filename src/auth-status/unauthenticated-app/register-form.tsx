@@ -5,7 +5,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useRegisterUser from '../../hooks/useRegisterHook';
-import { Input, Button, Spinner, FormGroup } from '../../components/lib';
+import {
+  Input,
+  Button,
+  FullPageSpinner,
+  FormGroup,
+} from '../../components/lib';
 
 type RegisterFormData = yup.InferType<typeof registerSchema>;
 
@@ -28,6 +33,8 @@ export const RegisterForm = () => {
     delete userRegisterValues.confirmPassword;
     await mutateAsync({
       ...userRegisterValues,
+      books: [],
+      finishedBooks: [],
     });
     resetField('username');
     resetField('password');
@@ -47,11 +54,7 @@ export const RegisterForm = () => {
   }, [setFocus]);
   return (
     <form
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'stretch',
-      }}
+      className="flex flex-col items-stretch"
       onSubmit={handleSubmit(values => onSubmit(values))}
     >
       <FormGroup>
@@ -80,31 +83,14 @@ export const RegisterForm = () => {
           {...register('confirmPassword')}
         />
         {errors.confirmPassword && (
-          <p style={{ color: 'red' }}>{errors.confirmPassword.message}</p>
+          <p className="text-red-500">{errors.confirmPassword.message}</p>
         )}
       </FormGroup>
       <div>
-        <Button
-          disabled={!isDirty && !isValid}
-          style={
-            !isDirty || !!Object.keys(errors).length
-              ? {
-                  backgroundColor: 'red',
-                  cursor: 'not-allowed',
-                  marginTop: '1rem',
-                }
-              : {
-                  backgroundColor: 'green',
-                  cursor: 'pointer',
-                  marginTop: '1rem',
-                }
-          }
-          type="submit"
-          variant="primary"
-        >
+        <Button disabled={!isDirty && !isValid} type="submit" variant="primary">
           Register
         </Button>
-        {isLoading ? <Spinner style={{ marginLeft: 5 }} /> : null}
+        {isLoading ? <FullPageSpinner /> : null}
       </div>
     </form>
   );

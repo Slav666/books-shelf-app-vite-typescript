@@ -3,12 +3,18 @@ import { jsx } from '@emotion/core';
 import React, { FC, useEffect, useContext } from 'react';
 
 import DataContext from '../../context/user-context';
-import { Input, Button, Spinner, FormGroup } from '../../components/lib';
+import {
+  Input,
+  Button,
+  FullPageSpinner,
+  FormGroup,
+} from '../../components/lib';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useRegisterUser from '../../hooks/useRegisterHook';
 
+//create a function that takes in a user and returns a promise
 type LoginFormData = yup.InferType<typeof loginSchema>;
 
 interface InputLoginProps {
@@ -45,12 +51,10 @@ export const LoginForm: FC<InputLoginProps> = () => {
   }, [setFocus]);
 
   return (
+    // eslint-disable-next-line tailwindcss/no-custom-classname
+
     <form
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'stretch',
-      }}
+      className="flex flex-col items-stretch"
       onSubmit={handleSubmit(values => onSubmit(values))}
     >
       <FormGroup>
@@ -68,31 +72,18 @@ export const LoginForm: FC<InputLoginProps> = () => {
           {...register('password')}
         />
         {errors.password && (
-          <p style={{ color: 'red' }}>{errors.password.message}</p>
+          <p className="text-red-500">{errors.password.message}</p>
         )}
       </FormGroup>
       <div>
         <Button
           disabled={!isDirty || !!Object.keys(errors).length}
-          style={
-            !isDirty || !!Object.keys(errors).length
-              ? {
-                  backgroundColor: 'red',
-                  cursor: 'not-allowed',
-                  marginTop: '1rem',
-                }
-              : {
-                  backgroundColor: 'green',
-                  cursor: 'pointer',
-                  marginTop: '1rem',
-                }
-          }
           type="submit"
           variant="primary"
         >
           Log in
         </Button>
-        {isLoading ? <Spinner style={{ marginLeft: 5 }} /> : null}
+        {isLoading ? <FullPageSpinner /> : null}
       </div>
     </form>
   );

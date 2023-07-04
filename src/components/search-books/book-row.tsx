@@ -10,11 +10,14 @@ export interface Props {
   book: IBook;
   user: IUser;
   books: IBook[];
+  isBookAdded: (IBook | undefined)[];
 }
 
 const BookRow: FC<Props> = ({ book }) => {
   const { user, setUser } = useContext<AuthenticationContextType>(UserContext);
   const { mutateAsync, status, error } = useAddBookToUser();
+
+  const isBookAdded = user.books.find(userBook => userBook.id === book.id);
 
   const addBookToUserHandler = async (): Promise<void> => {
     const result = await mutateAsync({
@@ -22,49 +25,29 @@ const BookRow: FC<Props> = ({ book }) => {
       books: [...user.books, book],
     });
     setUser(result);
-    console.log('result', result);
   };
 
   return (
-    <div className="book-row-container">
-      <div className="book-row">
+    <div className="relative m-12 flex max-w-screen-lg items-center justify-end">
+      <section className="grid min-h-[270px] grow grid-cols-[140px,1fr] gap-10 rounded-md border border-black p-5 text-white">
+        <img
+          alt={`${book.title} book cover`}
+          className="max-h-full w-full"
+          src={book.coverImageUrl}
+        />
         <div>
-          <img
-            alt={`${book.title} book cover`}
-            className="book-row-image"
-            src={book.coverImageUrl}
-          />
+          <h2 className="text-xl font-bold text-blue-500">{book.title}</h2>
+          <div className="mt-2 text-sm italic">{book.author}</div>
+          <small>{book.synopsis.substring(0, 500)}...</small>
         </div>
-        <div>
-          <div>
-            <div>
-              <h2 className="book-row-title">{book.title}</h2>
-            </div>
-            <div>
-              <div className="book-row-author">{book.author}</div>
-              <small>{book.publisher}</small>
-            </div>
-          </div>
-          <small className="book-row-synopsis">
-            {book.synopsis.substring(0, 500)}...
-          </small>
-        </div>
-
-        <div>
-          <Button
-            className="book-row-button"
-            // disabled={
-            //   user.books.find(userBook => userBook.id === book.id)
-            //     ? true
-            //     : false
-            // }
-            variant="primary"
-            onClick={addBookToUserHandler}
-          >
-            Add book to reading
-          </Button>
-        </div>
-      </div>
+        <Button
+          disabled={isBookAdded}
+          variant="primary"
+          onClick={addBookToUserHandler}
+        >
+          {isBookAdded ? 'Book Added' : 'Add book to reading'}
+        </Button>
+      </section>
     </div>
   );
 };
