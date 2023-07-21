@@ -13,7 +13,7 @@ const NavLink = props => {
 
 export const Nav = () => {
   return (
-    <nav className="sticky top-4 rounded-md border border-black px-6 py-4">
+    <nav className=" rounded-md border border-black px-6 py-4">
       <ul>
         <li>
           <NavLink to="/reading-books-list">Reading List</NavLink>

@@ -8,11 +8,22 @@ const FinishedListBooks: FC = (): ReactElement => {
   const { user } = useContext(UserContext);
 
   return (
-    <ul>
-      {user.finishedBooks.map((finishedBook: IBook) => (
-        <FinishedSingleBook key={finishedBook.id} finishedBook={finishedBook} />
-      ))}
-    </ul>
+    <>
+      {user.finishedBooks.length === 0 ? (
+        <div className="flex h-screen items-center justify-center">
+          <p className="text-3xl">No finished books</p>
+        </div>
+      ) : (
+        <ul>
+          {user.finishedBooks.map((finishedBook: IBook) => (
+            <FinishedSingleBook
+              key={finishedBook.id}
+              finishedBook={finishedBook}
+            />
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 
