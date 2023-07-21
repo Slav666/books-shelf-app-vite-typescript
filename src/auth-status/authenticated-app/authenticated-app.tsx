@@ -19,22 +19,22 @@ const AuthenticatedApp: FC = (): ReactElement => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <div className="absolute top-40 right-10 flex items-center">
         {/* <p>Hello User: {user.username} </p> */}
         <Button variant="secondary" onClick={handleLoggedOut}>
           Logout
         </Button>
       </div>
-      <div className="mx-auto mt-16 flex w-full max-w-7xl p-8">
-        <div>
+      <div className="mx-auto mt-16 flex w-full max-w-7xl flex-col  p-8 md:flex-row">
+        <div className="mx-auto max-h-[300px]  max-w-[300px] md:w-1/4">
           <Nav />
         </div>
-        <main style={{ width: '100%' }}>
+        <main className=" md:w-3/4">
           <AppRoutes />
         </main>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

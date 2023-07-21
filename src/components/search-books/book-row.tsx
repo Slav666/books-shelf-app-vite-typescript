@@ -28,18 +28,22 @@ const BookRow: FC<Props> = ({ book }) => {
   };
 
   return (
-    <div className="relative m-12 flex max-w-screen-lg items-center justify-end">
-      <section className="grid min-h-[270px] grow grid-cols-[140px,1fr] gap-10 rounded-md border border-black p-5 text-white">
+    <div className="mx-auto my-4 max-w-[500px] rounded-[20px] border-2 border-solid border-black p-4">
+      <div className="flex items-center justify-center ">
         <img
           alt={`${book.title} book cover`}
-          className="max-h-full w-full"
+          className="max-h-[250px] w-auto"
           src={book.coverImageUrl}
         />
-        <div>
-          <h2 className="text-xl font-bold text-blue-500">{book.title}</h2>
-          <div className="mt-2 text-sm italic">{book.author}</div>
-          <small>{book.synopsis.substring(0, 500)}...</small>
-        </div>
+      </div>
+      <div className="mt-4 text-center">
+        <h2 className="text-xl font-bold text-blue-500">{book.title}</h2>
+        <div className="text-sm text-gray-600">{book.author}</div>
+        <small className="mt-2 block">
+          {book.synopsis.substring(0, 700)}...
+        </small>
+      </div>
+      <div className="mt-4 text-center">
         <Button
           disabled={isBookAdded}
           variant="primary"
@@ -47,7 +51,7 @@ const BookRow: FC<Props> = ({ book }) => {
         >
           {isBookAdded ? 'Book Added' : 'Add book to reading'}
         </Button>
-      </section>
+      </div>
     </div>
   );
 };

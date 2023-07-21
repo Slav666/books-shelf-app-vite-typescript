@@ -34,7 +34,7 @@ const SingleReadBook: FC<Props> = ({ book }): ReactElement => {
     setUser(result);
   };
 
-  return book ? (
+  return (
     <div className="relative m-12 flex max-w-screen-lg items-center justify-end">
       <section className="grid min-h-[270px] grow grid-cols-[140px,1fr] gap-10 rounded-md border border-black p-5 text-white">
         <img
@@ -57,8 +57,6 @@ const SingleReadBook: FC<Props> = ({ book }): ReactElement => {
         </div>
       </section>
     </div>
-  ) : (
-    <p style={{ color: 'red' }}>No books</p>
   );
 };
 export default SingleReadBook;

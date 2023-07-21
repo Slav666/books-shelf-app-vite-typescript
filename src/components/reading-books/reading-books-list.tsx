@@ -6,11 +6,19 @@ import SingleReadBook from './reading-book';
 const ReadingListScreen: FC = (): ReactElement => {
   const { user } = useContext(UserContext);
   return (
-    <ul>
-      {user.books.map(book => (
-        <SingleReadBook key={book.id} book={book} bookToDeleteId={0} />
-      ))}
-    </ul>
+    <>
+      {user.books.length === 0 ? (
+        <div className="flex h-screen items-center justify-center">
+          <p className="text-3xl">No reading books</p>
+        </div>
+      ) : (
+        <ul>
+          {user.books.map(book => (
+            <SingleReadBook key={book.id} book={book} bookToDeleteId={0} />
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 
