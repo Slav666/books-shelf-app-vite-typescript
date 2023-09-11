@@ -29,11 +29,11 @@ const UnauthenticatedApp: FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center">
+    <div className="flex h-[72vh] flex-col items-center justify-center bg-black p-5">
       <Logo height="80" width="80" />
-      <h1>Bookshelf</h1>
+      <h1 className="m-4 p-4">Bookshelf</h1>
       {!showLoginForm && !showRegisterForm && (
-        <div className="unauthenticated-app-buttons-layout">
+        <div className="flex gap-2">
           <Button variant="secondary" onClick={handleLoginClick}>
             Login
           </Button>
@@ -44,26 +44,26 @@ const UnauthenticatedApp: FC = () => {
       )}
       {showLoginForm && (
         <div className="mb-5 rounded-md border border-gray-300 p-5">
-          <header className="flex items-center justify-between bg-gray-200 p-4">
-            <h2>Login</h2>
+          <header className="flex items-center justify-between  bg-gray-200 p-2">
+            <h2 className="text-black">Login</h2>
             <Button variant="primary" onClick={handleLoginFormClose}>
               <span>&times;</span>
             </Button>
           </header>
-          <div className="form-content">
+          <div>
             <LoginForm />
           </div>
         </div>
       )}
       {showRegisterForm && (
         <div className="mb-5 rounded-md border border-gray-300 p-5">
-          <header className="flex items-center justify-between bg-gray-200 p-4">
-            <h2>Register</h2>
+          <header className=" flex items-center justify-between bg-gray-200 p-4">
+            <h2 className="text-black">Register</h2>
             <Button variant="primary" onClick={handleRegisterFormClose}>
               <span>&times;</span>
             </Button>
           </header>
-          <div className="form-content">
+          <div>
             <RegisterForm />
           </div>
         </div>

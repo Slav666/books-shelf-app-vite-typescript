@@ -61,7 +61,7 @@ export const RegisterForm = () => {
         <label htmlFor="username">Username</label>
         <Input placeholder="username" {...register('username')} />
         {errors.username && (
-          <p style={{ color: 'red' }}>{errors.username.message}</p>
+          <p className="p-2 text-red-500">{errors.username.message}</p>
         )}
       </FormGroup>
       <FormGroup>
@@ -72,7 +72,7 @@ export const RegisterForm = () => {
           {...register('password')}
         />
         {errors.password && (
-          <p style={{ color: 'red' }}>{errors.password.message}</p>
+          <p className="p-2 text-red-500">{errors.password.message}</p>
         )}
       </FormGroup>
       <FormGroup>
@@ -83,10 +83,10 @@ export const RegisterForm = () => {
           {...register('confirmPassword')}
         />
         {errors.confirmPassword && (
-          <p className="text-red-500">{errors.confirmPassword.message}</p>
+          <p className="p-2 text-red-500">{errors.confirmPassword.message}</p>
         )}
       </FormGroup>
-      <div>
+      <div className="p-2">
         <Button disabled={!isDirty && !isValid} type="submit" variant="primary">
           Register
         </Button>

@@ -11,7 +11,7 @@ import '../../app.css';
 
 const AuthenticatedApp: FC = (): ReactElement => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const handleLoggedOut = () => {
     setUser(null);
@@ -21,7 +21,6 @@ const AuthenticatedApp: FC = (): ReactElement => {
   return (
     <>
       <div className="absolute top-40 right-10 flex items-center">
-        {/* <p>Hello User: {user.username} </p> */}
         <Button variant="secondary" onClick={handleLoggedOut}>
           Logout
         </Button>

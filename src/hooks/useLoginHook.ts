@@ -1,11 +1,24 @@
 import axios from 'axios';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
-export default function useLoginUser() {
-  return useMutation(userLoginValues => {
+interface LoginUserValues {
+  email: string;
+  password: string;
+}
+
+interface UserData {
+  id: number;
+  name: string;
+  email: string;
+}
+
+export default function useLoginUser(
+  options?: UseMutationOptions<UserData, Error, LoginUserValues>,
+) {
+  return useMutation<UserData, Error, LoginUserValues>(userLoginValues => {
     return axios.post('/api/login/', userLoginValues).then(res => {
-      const data = res.data;
+      const data: UserData = res.data;
       return data;
     });
-  });
+  }, options);
 }

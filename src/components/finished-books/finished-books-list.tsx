@@ -10,8 +10,8 @@ const FinishedListBooks: FC = (): ReactElement => {
   return (
     <>
       {user.finishedBooks.length === 0 ? (
-        <div className="flex h-screen items-center justify-center">
-          <p className="text-3xl">No finished books</p>
+        <div className="flex h-[60vh] items-center justify-center">
+          <p className="text-2xl">No finished books</p>
         </div>
       ) : (
         <ul>
