@@ -14,7 +14,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useRegisterUser from '../../hooks/useRegisterHook';
 
-//create a function that takes in a user and returns a promise
 type LoginFormData = yup.InferType<typeof loginSchema>;
 
 interface InputLoginProps {
@@ -51,17 +50,15 @@ export const LoginForm: FC<InputLoginProps> = () => {
   }, [setFocus]);
 
   return (
-    // eslint-disable-next-line tailwindcss/no-custom-classname
-
     <form
-      className="flex flex-col items-stretch"
+      className="flex flex-col items-stretch p-2"
       onSubmit={handleSubmit(values => onSubmit(values))}
     >
       <FormGroup>
         <label htmlFor="username">Username</label>
         <Input placeholder="username" {...register('username')} />
         {errors.username && (
-          <p style={{ color: 'red' }}>{errors.username.message}</p>
+          <p className="p-2 text-red-500">{errors.username.message}</p>
         )}
       </FormGroup>
       <FormGroup>
@@ -72,10 +69,10 @@ export const LoginForm: FC<InputLoginProps> = () => {
           {...register('password')}
         />
         {errors.password && (
-          <p className="text-red-500">{errors.password.message}</p>
+          <p className="p-2 text-red-500">{errors.password.message}</p>
         )}
       </FormGroup>
-      <div>
+      <div className="p-2">
         <Button
           disabled={!isDirty || !!Object.keys(errors).length}
           type="submit"

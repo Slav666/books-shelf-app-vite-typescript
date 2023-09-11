@@ -13,15 +13,16 @@ const App: FC = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-
-      {user ? (
-        <Router>
-          <AuthenticatedApp />
-        </Router>
-      ) : (
-        <UnauthenticatedApp />
-      )}
-      <Footer />
+      <div className="h-full">
+        {user ? (
+          <Router>
+            <AuthenticatedApp />
+          </Router>
+        ) : (
+          <UnauthenticatedApp />
+        )}
+        <Footer />
+      </div>
     </div>
   );
 };

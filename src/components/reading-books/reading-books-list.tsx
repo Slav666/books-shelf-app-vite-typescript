@@ -8,8 +8,8 @@ const ReadingListScreen: FC = (): ReactElement => {
   return (
     <>
       {user.books.length === 0 ? (
-        <div className="flex h-screen items-center justify-center">
-          <p className="text-3xl">No reading books</p>
+        <div className="flex h-[60vh] items-center justify-center">
+          <p className="text-2xl">No reading books</p>
         </div>
       ) : (
         <ul>

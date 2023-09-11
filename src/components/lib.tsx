@@ -1,10 +1,7 @@
-import React, { ReactElement, ReactEventHandler } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'react-router-dom';
-import { Dialog as ReachDialog } from '@reach/dialog';
 import { FaSpinner } from 'react-icons/fa';
-import { keyframes } from '@emotion/react';
-import classNames from 'tailwindcss-classnames';
 import { jsx } from '@emotion/react';
 
 export interface ButtonProps {

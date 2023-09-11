@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  createContext,
-  ReactElement,
-  FC,
-  Dispatch,
-  ReactNode,
-} from 'react';
+import React, { useState, createContext, FC, Dispatch, ReactNode } from 'react';
 
 import useLoginUser from '../hooks/useLoginHook';
 import { IUser } from '../../src/utils/interface';

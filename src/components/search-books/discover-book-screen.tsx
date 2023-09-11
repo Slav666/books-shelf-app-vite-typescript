@@ -20,19 +20,17 @@ const DiscoverBooksScreen: FC = () => {
 
   return (
     <div>
-      {/* Search Input */}
       <div className="flex items-center justify-center py-8">
         <input
+          ref={inputRef}
           className=" max-w-[800px]  rounded-md border border-gray-300 px-4 py-2 text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Search books..."
           type="text"
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
-          ref={inputRef} // Set the inputRef here
         />
       </div>
 
-      {/* Display filtered books */}
       {filteredBooks?.map(book => {
         return (
           <BookRow

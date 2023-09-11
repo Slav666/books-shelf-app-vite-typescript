@@ -44,7 +44,7 @@ module.exports = {
     //     pathGroups: [
     //       {
     //         pattern: '~/**',
-    //         group: 'external',
+    //         group: 'external',headers-polyfill
     //         position: 'after',
     //       },
     //     ],
